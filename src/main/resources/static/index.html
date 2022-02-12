@@ -30,6 +30,7 @@
             <td>ID</td>
             <td>Название</td>
             <td>Цена</td>
+<!--            <td>Описание</td>-->
             <td></td>
         </tr>
         <tbody>
@@ -39,9 +40,10 @@
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
             <td>{{p.price}} $</td>
+<!--            <td>{{p.description}} </td>-->
             <td>
-                <button type="button" class="btn btn-info" ng-click="showProductInfo(p.id)">Info</button>
-                <button type="button" class="btn btn-danger" ng-click="deleteProductById(p.id)">Delete</button>
+                <button type="button" class="btn btn-info" ng-click="showProductInfo(p.id)">Информация</button>
+                <button type="button" class="btn btn-danger" ng-click="deleteProductById(p.id)">Удалить</button>
             </td>
         </tr>
 

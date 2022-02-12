@@ -2,6 +2,7 @@ package ru.gb.springShop.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,4 +23,7 @@ public class Product {
 
     @Column(name = "price")
     private int price;
+
+    @Column(name = "description")
+    private String description;
 }
