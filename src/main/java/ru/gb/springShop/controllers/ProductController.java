@@ -30,5 +30,10 @@ public class ProductController {
         return productService.findById(id).get();
     }
 
+    //удаляем объект по id
+    @DeleteMapping("/{id}")
+    void  deleteProductById(@PathVariable Long id) {
+        productService.deleteById(id);
+    }
 
 }
