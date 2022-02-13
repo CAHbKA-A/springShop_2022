@@ -38,7 +38,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         }
 
 
-        // упаковываем ответного data в переменную cartsList. пока по всем юзерам
+// получаем cartsList. пока по всем юзерам
         $scope.loadCarts = function () {
             $http.get('http://localhost:8189/shop/api/v1/carts').then(function (response) {
                 $scope.cartList = response.data;

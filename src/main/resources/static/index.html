@@ -67,8 +67,8 @@
         <tr ng-repeat="cart in cartList">
             <td>{{cart.id}}</td>
             <td>{{cart.productId}}</td>
-            <td>{{p.titleProduct}}</td>
-            <td>{{p.price}} $</td>
+            <td>{{cart.productName}}</td>
+            <td>{{cart.productCost}} $</td>
             <td>
 
                 <button type="button" class="btn btn-danger" ng-click="deleteProductFromCartById(cart.id)">Удалить

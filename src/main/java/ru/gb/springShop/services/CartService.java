@@ -25,6 +25,9 @@ public class CartService {
         cart.setProductId(product.get().getId());
         cart.setCount(1);
         cart.setUserId(0L);
+        cart.setProductName(product.get().getTitle());
+        cart.setProductCost(product.get().getPrice() * cart.getCount());
+
         System.out.println(cart);
         cartRepository.save(cart);
     }

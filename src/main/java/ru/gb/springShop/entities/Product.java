@@ -26,4 +26,10 @@ public class Product {
 
     @Column(name = "description")
     private String description;
+
+
+//todo связать таблицы
+//    @ManyToOne
+//    @JoinColumn(name = "product_id")
+//    private Cart cart;
 }
