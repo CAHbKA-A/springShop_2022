@@ -37,8 +37,27 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             });
         }
 
+
+        // упаковываем ответного data в переменную cartsList. пока по всем юзерам
+        $scope.loadCarts = function () {
+            $http.get('http://localhost:8189/shop/api/v1/carts').then(function (response) {
+                $scope.cartList = response.data;
+            });
+        }
+//функция добавления в корзину
+
+        $scope.addProductToCartById = function (id) {
+
+            $http.get('http://localhost:8189/shop/api/v1/products/add-to-cart/' + id).then(function (response) {
+                //  $scope.cartList = response.data;
+                $scope.loadCarts();
+            });
+        }
+
 //вызываем функцию (список продуктов)
         $scope.loadProducts();
+
+        $scope.loadCarts();
         console.log('end');
     }
 )
