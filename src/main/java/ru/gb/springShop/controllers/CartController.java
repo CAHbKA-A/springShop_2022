@@ -1,9 +1,7 @@
 package ru.gb.springShop.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.entities.Cart;
 import ru.gb.springShop.services.CartService;
 
@@ -25,5 +23,10 @@ public class CartController {
         return cartService.findAll();
     }
 
+    //удаляем объект по id
+    @DeleteMapping("/{id}")
+    void deleteCartById(@PathVariable Long id) {
+        cartService.deleteById(id);
+    }
 
 }
