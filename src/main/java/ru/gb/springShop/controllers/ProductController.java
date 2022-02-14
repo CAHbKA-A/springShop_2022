@@ -48,5 +48,11 @@ public class ProductController {
 
     }
 
-
+//    @GetMapping("/add-to-cart2/{productId}")
+//    void addToCart2(@PathVariable Long productId) {
+////        System.out.println("try adding " + productId);
+//        Optional product = productService.findById(productId);
+//        cartService.addProduct1(product);
+//
+//    }
 }

@@ -1,9 +1,11 @@
 package ru.gb.springShop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -28,8 +30,16 @@ public class Product {
     private String description;
 
 
-//todo связать таблицы
-//    @ManyToOne
-//    @JoinColumn(name = "product_id")
-//    private Cart cart;
+
+
+    @JsonIgnore // чтобы не зацикливался при преобразовании в json
+    @ManyToMany
+    @JoinTable(
+            name = "cart_to_product",
+            joinColumns = @JoinColumn(name = "id_cart"),
+            inverseJoinColumns = @JoinColumn(name = "id_product")
+    )
+    private Set<Product> cart;
+
+
 }

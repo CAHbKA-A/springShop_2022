@@ -61,6 +61,22 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         }
 
 
+        //
+        // //функция добавления в корзину2/
+        //
+        // $scope.add = function (id) {
+        //     $http.get('http://localhost:8189/shop/api/v1/products/add-to-cart2/' + id).then(function (response) {
+        //         $scope.loadCarts();
+        //     });
+        // }
+        //
+
+
+
+
+
+
+
 //вызываем функцию (список продуктов)
         $scope.loadProducts();
         $scope.loadCarts();

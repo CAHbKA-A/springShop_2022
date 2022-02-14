@@ -45,6 +45,7 @@
                 <button type="button" class="btn btn-info" ng-click="showProductInfo(p.id)">Информация</button>
                 <button type="button" class="btn btn-danger" ng-click="deleteProductById(p.id)">Удалить</button>
                 <button type="button" class="btn btn-success" ng-click="addProductToCartById(p.id)">В корзину</button>
+<!--                <button type="button" class="btn btn-success" ng-click="add(p.id)">В корзину2</button>-->
             </td>
         </tr>
         </tbody>
@@ -71,8 +72,9 @@
             <td>{{cart.productCost}} $</td>
             <td>
 
-                <button type="button" class="btn btn-danger" ng-click="deleteProductFromCartById(cart.id)">Удалить
-                </button>
+                <button type="button" class="btn btn-danger" ng-click="deleteProductFromCartById(cart.id)">Удалить </button>
+
+
 
             </td>
         </tr>
