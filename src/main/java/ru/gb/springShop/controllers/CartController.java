@@ -21,7 +21,7 @@ public class CartController {
 
     //вытягивание всего списка
     @GetMapping
-    public Set<Product>  findAllCarts() {
+    public List<Product>  findAllCarts() {
         return cartService.findAll();
     }
 

@@ -7,9 +7,7 @@ import ru.gb.springShop.entities.Product;
 import ru.gb.springShop.repositories.CartRepository;
 import ru.gb.springShop.repositories.ProductRepository;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -35,7 +33,7 @@ public class CartService {
         Optional<Product> productForDel = productRepository.findById(id);
         //пока user ID - 1
         cart = cartRepository.findFirstByUserId(1L);
-        Set<Product> products = cart.get().getProducts();
+        List<Product> products = cart.get().getProducts();
         products.remove(productForDel.get());
         cart.get().setProducts(products);
         System.out.println(cart.get());
@@ -53,18 +51,18 @@ public class CartService {
         } else {
             cart = Optional.of(new Cart());
         }
-        Set<Product> products;
+        List<Product> products;
         if (cart.get().getProducts() != null) {
             products = cart.get().getProducts();
             products.add(product.get());
-        } else products = new HashSet<>();
+        } else products = new ArrayList<>();
         cart.get().setProducts(products);
         System.out.println(cart.get());
         cartRepository.saveAndFlush(cart.get());
     }
 
 
-    public Set<Product> findAll() {
+    public List<Product> findAll() {
         Cart cart = cartRepository.findFirstByUserId(1L).get();
 
         return cart.getProducts();

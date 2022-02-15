@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,7 +39,7 @@ public class Cart {
             joinColumns = @JoinColumn(name = "id_cart"),
             inverseJoinColumns = @JoinColumn(name = "id_product")
     )
-    private Set<Product> products;
+    private List<Product> products;
 
 
     @Override
