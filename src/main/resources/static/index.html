@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html ng-app="app">
+
+<head>
+
+    <meta charset="utf-8">
+    <!--    подтягиваем стили бутсрапа-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+
+    <!--    подключаем скрипт продуктов-->
+    <script src="products.js"></script>
+    <!--    &lt;!&ndash;    подключаем скрипт корзины&ndash;&gt;-->
+    <!--    <script src="carts.js"></script>-->
+</head>
+
+<body>
+
+<div class="container" ng-controller="indexController">
+    <h1>Магазин</h1>
+    <h3>Список</h3>
+
+
+    <table class="table table-hover">
+        <tr>
+            <td>ID</td>
+            <td>Название</td>
+            <td>Цена</td>
+
+            <td></td>
+        </tr>
+        <tbody>
+
+
+        <tr ng-repeat="p in productsList">
+            <td>{{p.id}}</td>
+            <td>{{p.title}}</td>
+            <td>{{p.price}} $</td>
+            <td>
+                <button type="button" class="btn btn-info" ng-click="showProductInfo(p.id)">Информация</button>
+                <button type="button" class="btn btn-danger" ng-click="deleteProductById(p.id)">Удалить</button>
+                <button type="button" class="btn btn-success" ng-click="addProductToCartById(p.id)">В корзину</button>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <h3>Корзина</h3>
+    <table class="table table-bordered">
+        <tr>
+            <td>ID_продукта</td>
+            <td>Название</td>
+            <td>Цена</td>
+
+
+            <td></td>
+        </tr>
+        <tbody>
+
+
+        <tr ng-repeat="cart in cartList">
+            <td>{{cart.id}}</td>
+            <td>{{cart.title}}</td>
+            <td>{{cart.price}}</td>
+
+
+            <td>
+
+                <button type="button" class="btn btn-danger" ng-click="deleteProductFromCartById(cart.id)">Удалить </button>
+
+
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+</body>
+</html>
