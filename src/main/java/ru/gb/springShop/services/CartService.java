@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import ru.gb.springShop.entities.Cart;
 import ru.gb.springShop.entities.Product;
 import ru.gb.springShop.repositories.CartRepository;
+import ru.gb.springShop.repositories.ProductRepository;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -16,11 +16,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class CartService {
     private final CartRepository cartRepository;
+    private final ProductRepository productRepository;
 
-    public List<Cart> findAll() {
-
-        return cartRepository.findAll();
-    }
 
     public Optional<Cart> findById(Long id) {
         return cartRepository.findById(id);
@@ -29,50 +26,49 @@ public class CartService {
 
     public void addProduct(Optional<Product> product) {
         Cart cart = new Cart();
-        cart.setProductId(product.get().getId());
-        cart.setCount(1);
-        cart.setUserId(0L);
-        cart.setProductName(product.get().getTitle());
-        cart.setProductCost(product.get().getPrice() * cart.getCount());
-
-      //  System.out.println(cart);
+        cart.setUserId(1L);
         cartRepository.save(cart);
     }
 
     public void deleteById(Long id) {
-        cartRepository.deleteById(id);
+        Optional<Cart> cart = Optional.of(new Cart());
+        Optional<Product> productForDel = productRepository.findById(id);
+        //пока user ID - 1
+        cart = cartRepository.findFirstByUserId(1L);
+        Set<Product> products = cart.get().getProducts();
+        products.remove(productForDel.get());
+        cart.get().setProducts(products);
+        System.out.println(cart.get());
+        cartRepository.saveAndFlush(cart.get());
     }
 
 
+    public void addProduct1(Optional<Product> product) {
 
-//
-//    public void addProduct1(Optional<Product> product) {
-//
-//        Optional<Cart> cart = Optional.of(new Cart());
-//        //пока Cart ID - 1
-//        if (cartRepository.findById(1L).isPresent()) {
-//            cart = cartRepository.findById(1L);
-//
-//
-//           // System.out.println("111 "+cart);
-//        } //else System.out.println("нет корзин у пользователя");
-//
-//        Set<Product> products = new HashSet<>();
-//        if (cart.get().getProducts() != null) {
-//             products = cart.get().getProducts();
-//        }
-//
-//      //  products.add(Optional<Product> product);
-//        System.out.println(products);
-//
-//
-//        System.out.println(cart);
-//        //   cartRepository.save(Optional<Cart> cart);
-//    }
+        Optional<Cart> cart = Optional.of(new Cart());
+
+        //пока user ID - 1
+        if (cartRepository.findFirstByUserId(1L).isPresent()) {
+            cart = cartRepository.findFirstByUserId(1L);
+        } else {
+            cart = Optional.of(new Cart());
+        }
+        Set<Product> products;
+        if (cart.get().getProducts() != null) {
+            products = cart.get().getProducts();
+            products.add(product.get());
+        } else products = new HashSet<>();
+        cart.get().setProducts(products);
+        System.out.println(cart.get());
+        cartRepository.saveAndFlush(cart.get());
+    }
 
 
+    public Set<Product> findAll() {
+        Cart cart = cartRepository.findFirstByUserId(1L).get();
 
-
+        return cart.getProducts();
+    }
 
 
 }

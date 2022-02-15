@@ -3,9 +3,11 @@ package ru.gb.springShop.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.entities.Cart;
+import ru.gb.springShop.entities.Product;
 import ru.gb.springShop.services.CartService;
 
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -19,7 +21,7 @@ public class CartController {
 
     //вытягивание всего списка
     @GetMapping
-    public List<Cart> findAllProducts() {
+    public Set<Product>  findAllCarts() {
         return cartService.findAll();
     }
 
@@ -28,5 +30,7 @@ public class CartController {
     void deleteCartById(@PathVariable Long id) {
         cartService.deleteById(id);
     }
+
+
 
 }

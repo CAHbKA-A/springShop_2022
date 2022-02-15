@@ -19,22 +19,15 @@ create table carts
 (
     id_cart         bigserial primary key,
     user_id         int,
-    product_id      varchar(255),
---     удалить после настройки связей таблиц
-    product_name    varchar(255),
---     удалить после настройки связей таблиц
-    cost            int,
---     удалить после настройки связей таблиц
-    count           int,
+
     date_expiration date
 
 
 );
 
--- insert into carts (user_id, product_id, product_name, cost, count)
--- values (1,1,'ewe',2,3),
---        (1,2,'reewe',2,3);
---
+insert into carts (user_id)
+values        (1);
+
 
 
 -- корзина_продукт связь
@@ -47,5 +40,5 @@ create table cart_to_product
 );
 
 insert into cart_to_product (id_cart, id_product, count)
-values (1, 1, 2),
-       (1, 3, 5);
+values (1, 4, 2);
+

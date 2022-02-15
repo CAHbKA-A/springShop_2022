@@ -27,24 +27,9 @@ public class Cart {
     private Long dateExpiration;
 
 
-    /*      todo убрать и сделать связь с таблицей продукты*/
-    @Column(name = "product_id")
-    private Long productId;
-
-    /*      todo убрать и сделать связь с таблицей продукты*/
-    @Column(name = "count")
-    private int count;
-
-    /*     todo убрать и сделать связь с таблицей продукты*/
-    @Column(name = "product_name")
-    private String productName;
-
-    /*     todo убрать и сделать связь с таблицей продукты*/
-    @Column(name = "cost")
-    private Integer productCost;
 
 
-    /*1 корзина может содержать несколько продутов*/
+    /*1 корзина может содержать несколько продуkтов*/
     /*один продукт может быть в нескольких корзинах*/
     @JsonIgnore
     @ManyToMany
@@ -59,8 +44,8 @@ public class Cart {
     @Override
     public String toString() {
         return "Cart{" +
-                "id=" + id +
-                ", userId=" + userId +
+                "userId=" + userId +
+
                 ", products=" + products +
                 '}';
     }

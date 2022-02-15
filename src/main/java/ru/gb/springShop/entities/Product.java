@@ -32,14 +32,4 @@ public class Product {
 
 
 
-    @JsonIgnore // чтобы не зацикливался при преобразовании в json
-    @ManyToMany
-    @JoinTable(
-            name = "cart_to_product",
-            joinColumns = @JoinColumn(name = "id_cart"),
-            inverseJoinColumns = @JoinColumn(name = "id_product")
-    )
-    private Set<Product> cart;
-
-
 }
