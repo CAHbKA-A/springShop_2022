@@ -26,8 +26,7 @@ create table carts
 );
 
 insert into carts (user_id)
-values        (1);
-
+values (1);
 
 
 -- корзина_продукт связь

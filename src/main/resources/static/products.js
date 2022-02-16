@@ -29,7 +29,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
 //Удаление из корзины
         $scope.deleteProductFromCartById = function (id) {
-            $http.delete('http://localhost:8189/shop/api/v1/carts/' + id).then(function (response) {
+            $http.get('http://localhost:8189/shop/api/v1/cart/delete/' + id).then(function (response) {
                 //обновляем
                 $scope.loadCarts();
             });
@@ -39,7 +39,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         //функция добавления в корзину2/
 
         $scope.addProductToCartById = function (id) {
-            $http.get('http://localhost:8189/shop/api/v1/products/add-to-cart2/' + id).then(function (response) {
+            $http.get('http://localhost:8189/shop/api/v1/cart/add-to-cart/' + id).then(function (response) {
                 $scope.loadCarts();
             });
         }
@@ -47,7 +47,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
 // получаем cartsList. пока по всем юзерам
         $scope.loadCarts = function () {
-            $http.get('http://localhost:8189/shop/api/v1/carts/').then(function (response) {
+            $http.get('http://localhost:8189/shop/api/v1/cart/').then(function (response) {
 
                 $scope.cartList = response.data;
 

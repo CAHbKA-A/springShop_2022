@@ -1,11 +1,9 @@
 package ru.gb.springShop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Data
@@ -28,8 +26,6 @@ public class Product {
 
     @Column(name = "description")
     private String description;
-
-
 
 
 }

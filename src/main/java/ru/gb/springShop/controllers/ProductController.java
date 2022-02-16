@@ -7,7 +7,6 @@ import ru.gb.springShop.services.CartService;
 import ru.gb.springShop.services.ProductService;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -39,18 +38,5 @@ public class ProductController {
     }
 
 
-    @GetMapping("/add-to-cart/{productId}")
-    void addToCart(@PathVariable Long productId) {
-        Optional product = productService.findById(productId);
-        cartService.addProduct(product);
 
-    }
-
-    @GetMapping("/add-to-cart2/{productId}")
-    void addToCart2(@PathVariable Long productId) {
-
-        Optional product = productService.findById(productId);
-        cartService.addProduct1(product);
-
-    }
 }

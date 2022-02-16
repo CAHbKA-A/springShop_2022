@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -26,8 +24,6 @@ public class Cart {
 
     @Column(name = "date_expiration")
     private Long dateExpiration;
-
-
 
 
     /*1 корзина может содержать несколько продуkтов*/

@@ -1,21 +1,20 @@
-
 create table users
 (
-    id         bigserial primary key,
-    username   varchar(36) not null,
-    password   varchar(80) not null
+    id       bigserial primary key,
+    username varchar(36) not null,
+    password varchar(80) not null
 );
 
 create table roles
 (
-    id         bigserial primary key,
-    name       varchar(50) not null
+    id   bigserial primary key,
+    name varchar(50) not null
 );
 
 create table users_roles
 (
-    user_id    bigint not null references users (id),
-    role_id    bigint not null references roles (id),
+    user_id bigint not null references users (id),
+    role_id bigint not null references roles (id),
     primary key (user_id, role_id)
 );
 
