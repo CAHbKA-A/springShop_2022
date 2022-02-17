@@ -58,12 +58,6 @@ public class ProductController {
         return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден, id: " + id));//orElseThrow()-вернет продукт ,е сли есть, а если нет, исключение
     }
 
-    // создаем метод, перехватывающий исключения
-    @ExceptionHandler //чтобы создался этот эксепшн хендлен и перехватывал исключения
-    public ResponseEntity<AppError> exeptionHandler(ResourceNotFoundException e) {
-        //если поймали исключение
-        return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
-    }
 
 
     //удаляем объект по id

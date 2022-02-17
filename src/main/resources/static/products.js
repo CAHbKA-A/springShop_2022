@@ -2,7 +2,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         console.log('start');
 
 
-// создаем функцию упаковки ответного data в переменную productsList
+
         $scope.loadProducts = function () {
             $http.get('http://localhost:8189/shop/api/v1/products').then(function (response) {
                 $scope.productsList = response.data;
@@ -10,7 +10,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         }
 
 
-//функция получения одного объекта по id
+
         $scope.showProductInfo = function (id) {
             $http.get('http://localhost:8189/shop/api/v1/products/' + id).then(function (response) {
                 //вспывающее окно
@@ -18,7 +18,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             });
         }
 
-//функция удаления одного продукта по id
+
         $scope.deleteProductById = function (id) {
             $http.delete('http://localhost:8189/shop/api/v1/products/' + id).then(function (response) {
                 //обновляем
@@ -27,37 +27,31 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         }
 
 
-//Удаление из корзины
-        $scope.deleteProductFromCartById = function (id) {
-            $http.get('http://localhost:8189/shop/api/v1/cart/delete/' + id).then(function (response) {
-                //обновляем
-                $scope.loadCarts();
+        $scope.loadCart = function () {
+            $http.get('http://localhost:8189/shop/api/v1/cart').then(function (response) {
+                $scope.cart = response.data;
             });
         }
 
 
-        //функция добавления в корзину2/
+        // $scope.deleteProductFromCartById = function (id) {
+        //     $http.get('http://localhost:8189/shop/api/v1/cart/delete/' + id).then(function (response) {
+        //         $scope.loadCarts();
+        //     });
+        // }
 
-        $scope.addProductToCartById = function (id) {
-            $http.get('http://localhost:8189/shop/api/v1/cart/add-to-cart/' + id).then(function (response) {
-                $scope.loadCarts();
+
+        $scope.addToCart = function (productId) {
+            $http.get('http://localhost:8189/shop/api/v1/cart/add/' + productId).then(function (response) {
+                $scope.loadCart();
             });
         }
 
-
-// получаем cartsList. пока по всем юзерам
-        $scope.loadCarts = function () {
-            $http.get('http://localhost:8189/shop/api/v1/cart/').then(function (response) {
-
-                $scope.cartList = response.data;
-
-            });
-        }
 
 
 //вызываем функцию (список продуктов)
         $scope.loadProducts();
-        $scope.loadCarts();
+        $scope.loadCart();
         console.log('end');
     }
 )
