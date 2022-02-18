@@ -1,16 +1,15 @@
 package ru.gb.springShop.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.springShop.dtos.ProductDto;
 import ru.gb.springShop.entities.Product;
-import ru.gb.springShop.exceptions.AppError;
 import ru.gb.springShop.exceptions.ResourceNotFoundException;
 import ru.gb.springShop.services.CartService;
 import ru.gb.springShop.services.ProductService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -25,8 +24,10 @@ public class ProductController {
 
     //вытягивание всего списка
     @GetMapping
-    public List<Product> findAllProducts() {
-        return productService.findAll();
+    public List<ProductDto> findAllProducts() {
+        //собираем и преобразуем в dto
+        return productService.findAll().stream().map(p -> new ProductDto(p.getId(), p.getTitle(), p.getPrice())).collect(Collectors.toList());
+
     }
 
 
@@ -53,11 +54,11 @@ public class ProductController {
     /*вариант поменьше*/
 
     @GetMapping("/{id}")
-    public Product findProductById(@PathVariable Long id) {
 
-        return productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден, id: " + id));//orElseThrow()-вернет продукт ,е сли есть, а если нет, исключение
+    public ProductDto findProductById(@PathVariable Long id) {
+        Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден, id: " + id));
+        return new ProductDto(p.getId(), p.getTitle(), p.getPrice());
     }
-
 
 
     //удаляем объект по id
