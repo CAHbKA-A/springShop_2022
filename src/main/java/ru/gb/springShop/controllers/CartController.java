@@ -20,6 +20,11 @@ public class CartController {
         cartService.add(id);
     }
 
+    @GetMapping("/deleteItemFromCart/{id}")
+    public void deleteItemFromCart(@PathVariable Long id) {
+        cartService.deleteItemFromCart(id);
+    }
+
     @GetMapping
     public Cart getCurrentCart() {
         return cartService.getCurrentCart();

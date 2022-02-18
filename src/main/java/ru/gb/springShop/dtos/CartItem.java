@@ -18,6 +18,7 @@ public class CartItem {
     private int pricePerProduct;
     private int price;
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

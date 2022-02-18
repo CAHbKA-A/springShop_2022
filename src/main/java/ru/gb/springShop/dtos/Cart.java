@@ -24,14 +24,12 @@ public class Cart {
 
     //todo проверка добаленного продукта. пересчет количества и стоимости
     public void add(Product product) {
-
         CartItem addingItem = new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice());
-
-
         //что лучше переопределит хеш и equals и по нему найи индекс или тупо перебором?
-        //думаю если корзина небольшая, то проще перебором. ну а я замахнулся на корзину в милион товаров)).
-        //возможно equals/has пригодится в будущем для поиска покупателей с одинаковым товаром.
-        //todo оценить необходимость простого преребора.
+        //если корзина небольшая, то проще перебором. ну а я замахнулся на корзину в милион товаров)).
+        //перебором мне не понравилось. не красиво выглядит код.
+
+
         int index = items.indexOf(addingItem);
 
         if (index != -1) {
@@ -41,9 +39,20 @@ public class Cart {
         } else {
             items.add(addingItem);
         }
-
-
         recalculate();
+    }
+
+
+    public void deleteItemFromCart(Long id) {
+        System.out.println(id);
+        for (CartItem item : items) {
+            if (item.getProductId() == id) {
+                items.remove(item);
+                break;
+            }
+        }
+        recalculate();
+
     }
 
 
