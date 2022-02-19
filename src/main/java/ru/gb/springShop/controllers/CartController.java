@@ -31,7 +31,14 @@ public class CartController {
         //todo проверка , что пришли 2 параметра
         Long id = param.get(0);
         int count = param.get(1).intValue();
-        cartService.SetCountItemInCart(id,count);
+        cartService.SetCountItemInCart(id, count);
+    }
+
+    @GetMapping("/clearCart")
+    @ResponseBody
+    public void clearCart() {
+        System.out.println("546546456");
+        cartService.clearCart();
     }
 
 

@@ -44,4 +44,9 @@ public class CartService {
             tempCart.setCount(id, count);
         }
     }
+    public void clearCart() {
+        tempCart.clearCart();
+    }
+
+
 }

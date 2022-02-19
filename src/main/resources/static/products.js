@@ -46,10 +46,17 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             });
         }
 
-        $scope.SetCountItem = function (productId, count) {
+        $scope.setCountItem = function (productId, count) {
 
-            $http.get('http://localhost:8189/shop/api/v1/cart/SetCountItemInCart?param=' + productId+ ','+count).then(function (response) {
-            // $http.get('http://localhost:8189/shop/api/v1/cart/SetCountItemInCart?product=' + productId+ '&count='+count).then(function (response) {
+            $http.get('http://localhost:8189/shop/api/v1/cart/SetCountItemInCart?param=' + productId + ',' + count).then(function (response) {
+                // $http.get('http://localhost:8189/shop/api/v1/cart/SetCountItemInCart?product=' + productId+ '&count='+count).then(function (response) {
+                $scope.loadCart();
+            });
+        }
+
+
+        $scope.clearCart = function () {
+            $http.get('http://localhost:8189/shop/api/v1/cart/clearCart').then(function (response) {
                 $scope.loadCart();
             });
         }

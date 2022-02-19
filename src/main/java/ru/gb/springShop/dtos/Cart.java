@@ -76,6 +76,15 @@ public class Cart {
         //пагубная практика -возвращать null, но пока не придумал решения
         return null;
     }
+
+    public void clearCart() {
+        System.out.println("qwsdasczxcs");
+        items.clear();
+        recalculate();
+
+    }
+
+
 //
 //    private CartItem FindItemByProduct(Product product) {
 //        return items.get(items.indexOf(product));
