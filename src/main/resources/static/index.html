@@ -63,7 +63,14 @@
         <tbody>
         <tr ng-repeat="item in cart.items">
             <td>{{item.productTitle}}</td>
-            <td>{{item.quantity}}</td>
+            <td>{{item.quantity}}
+<!--                можно будетдобавить поле с вводом цифры и можно будет использовать эту же ф-ию-->
+                    <button type="button" class="btn btn-secondary" ng-click="SetCountItem(item.productId,item.quantity-1)">-</button>
+                    <button type="button" class="btn btn-secondary" ng-click="SetCountItem(item.productId,item.quantity+1)">+</button>
+<!--                    <button type="button" class="btn btn-secondary" ng-click="decreaseCountItem(item.productId)">-</button>-->
+<!--                    <button type="button" class="btn btn-secondary" ng-click="increaseCountItem(item.productId)">+</button>-->
+
+            </td>
             <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + item.price}} $</td>
             <td><button type="button" class="btn btn-danger" ng-click="deleteItemFromCart(item.productId)">Удалить</button></td>
         </tr>

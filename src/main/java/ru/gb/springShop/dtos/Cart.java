@@ -33,8 +33,9 @@ public class Cart {
         int index = items.indexOf(addingItem);
 
         if (index != -1) {
-            //цену берем из product, на случай если за время существования корзины измениалсь цена в БД. покупать надо по актульной цене.
             items.get(index).setQuantity(items.get(index).getQuantity() + 1);
+            //цену берем из product, на случай если за время существования корзины измениалсь цена в БД. покупать надо по актульной цене.
+            //         items.get(index).setPricePerProduct(product.getPrice() );
             items.get(index).setPrice(product.getPrice() * ((items.get(index).getQuantity())));
         } else {
             items.add(addingItem);
@@ -44,15 +45,15 @@ public class Cart {
 
 
     public void deleteItemFromCart(Long id) {
-        System.out.println(id);
-        for (CartItem item : items) {
-            if (item.getProductId() == id) {
-                items.remove(item);
-                break;
-            }
-        }
+        items.remove(FindItemByProductID(id));
         recalculate();
+    }
 
+
+    public void setCount(Long id, int count) {
+        CartItem tmp = FindItemByProductID(id);
+        tmp.setQuantity(count);
+        recalculate();
     }
 
 
@@ -60,9 +61,25 @@ public class Cart {
     private void recalculate() {
         totalPrice = 0;
         for (CartItem item : items) {
+            item.setPrice(item.getPricePerProduct() * ((item.getQuantity())));
             totalPrice += item.getPrice();
+
+
         }
     }
 
+    private CartItem FindItemByProductID(Long id) {
+        for (CartItem item : items) {
+            if (item.getProductId() == id)
+                return item;
+        }
+        //пагубная практика -возвращать null, но пока не придумал решения
+        return null;
+    }
+//
+//    private CartItem FindItemByProduct(Product product) {
+//        return items.get(items.indexOf(product));
+//
+//    }
 
 }

@@ -46,6 +46,14 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
             });
         }
 
+        $scope.SetCountItem = function (productId, count) {
+
+            $http.get('http://localhost:8189/shop/api/v1/cart/SetCountItemInCart?param=' + productId+ ','+count).then(function (response) {
+            // $http.get('http://localhost:8189/shop/api/v1/cart/SetCountItemInCart?product=' + productId+ '&count='+count).then(function (response) {
+                $scope.loadCart();
+            });
+        }
+
 
 //вызываем функцию (список продуктов)
         $scope.loadProducts();

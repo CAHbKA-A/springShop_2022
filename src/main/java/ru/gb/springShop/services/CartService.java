@@ -6,7 +6,6 @@ import ru.gb.springShop.dtos.Cart;
 import ru.gb.springShop.entities.Product;
 import ru.gb.springShop.exceptions.ResourceNotFoundException;
 
-
 import javax.annotation.PostConstruct;
 
 @Service
@@ -33,4 +32,16 @@ public class CartService {
         tempCart.deleteItemFromCart(productId);
     }
 
+    public void SetCountItemInCart(Long id, int count) {
+
+
+        if (count <= 0) {
+
+            tempCart.setCount(id, 0);
+            //наврное не надо убирать из корзины. вдруг передумает и добавит
+            //deleteItemFromCart(id);
+        } else {
+            tempCart.setCount(id, count);
+        }
+    }
 }

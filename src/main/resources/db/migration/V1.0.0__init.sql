@@ -11,8 +11,8 @@ create table products
 
 -- продукты
 insert into products (title, price, description)
-values ('Product1', 34, 'описалово'),
-       ('Product2', 8340, 'blahblahblah'),
+values ('Product1', 1, 'описалово'),
+       ('Product2', 10, 'blahblahblah'),
        ('Product3', 8345, 'описалово'),
        ('Product4', 650, ',блаблабла');
 
