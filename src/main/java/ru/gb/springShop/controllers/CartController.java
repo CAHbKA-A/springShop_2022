@@ -1,13 +1,12 @@
 package ru.gb.springShop.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.dtos.Cart;
 import ru.gb.springShop.services.CartService;
 
-import java.util.List;
-
-
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
@@ -19,26 +18,25 @@ public class CartController {
         cartService.add(id);
     }
 
-    @GetMapping("/deleteItemFromCart/{id}")
+
+    @GetMapping("/deleteItem/{id}")
     public void deleteItemFromCart(@PathVariable Long id) {
         cartService.deleteItemFromCart(id);
     }
 
 
-    @GetMapping("/SetCountItemInCart")
+    @GetMapping("/SetCountItem")
     @ResponseBody
-    public void getCount(@RequestParam List<Long> param) {
-        //todo проверка , что пришли 2 параметра
-        Long id = param.get(0);
-        int count = param.get(1).intValue();
-        cartService.SetCountItemInCart(id, count);
+
+    public void getCount(@RequestParam Long id, int count) {
+        log.info("check. set for pr " + id + "  count= " + count);
+        cartService.setCountItemInCart(id, count);
     }
 
-    @GetMapping("/clearCart")
+    @GetMapping("/clear")
     @ResponseBody
     public void clearCart() {
-        System.out.println("546546456");
-        cartService.clearCart();
+        cartService.clear();
     }
 
 

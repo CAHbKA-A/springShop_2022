@@ -29,23 +29,17 @@ public class CartService {
     }
 
     public void deleteItemFromCart(Long productId) {
-        tempCart.deleteItemFromCart(productId);
+        tempCart.remove(productId);
     }
 
-    public void SetCountItemInCart(Long id, int count) {
 
-
-        if (count <= 0) {
-
-            tempCart.setCount(id, 0);
-            //наврное не надо убирать из корзины. вдруг передумает и добавит
-            //deleteItemFromCart(id);
-        } else {
-            tempCart.setCount(id, count);
-        }
+    public void clear() {
+        tempCart.clear();
     }
-    public void clearCart() {
-        tempCart.clearCart();
+
+    public void setCountItemInCart(Long id, int count) {
+
+        tempCart.setCount(id, Math.max(count, 0));
     }
 
 

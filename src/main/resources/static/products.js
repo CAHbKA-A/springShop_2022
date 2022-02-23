@@ -34,7 +34,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
 
 
         $scope.deleteItemFromCart = function (id) {
-            $http.get('http://localhost:8189/shop/api/v1/cart/deleteItemFromCart/' + id).then(function (response) {
+            $http.get('http://localhost:8189/shop/api/v1/cart/deleteItem/' + id).then(function (response) {
                 $scope.loadCart();
             });
         }
@@ -47,16 +47,14 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         }
 
         $scope.setCountItem = function (productId, count) {
-
-            $http.get('http://localhost:8189/shop/api/v1/cart/SetCountItemInCart?param=' + productId + ',' + count).then(function (response) {
-                // $http.get('http://localhost:8189/shop/api/v1/cart/SetCountItemInCart?product=' + productId+ '&count='+count).then(function (response) {
+            $http.get('http://localhost:8189/shop/api/v1/cart/SetCountItem?id=' + productId + '&count=' + count).then(function (response) {
                 $scope.loadCart();
             });
         }
 
 
         $scope.clearCart = function () {
-            $http.get('http://localhost:8189/shop/api/v1/cart/clearCart').then(function (response) {
+            $http.get('http://localhost:8189/shop/api/v1/cart/clear').then(function (response) {
                 $scope.loadCart();
             });
         }

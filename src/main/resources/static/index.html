@@ -15,8 +15,7 @@
 
     <!--    подключаем скрипт продуктов-->
     <script src="products.js"></script>
-    <!--    &lt;!&ndash;    подключаем скрипт корзины&ndash;&gt;-->
-    <!--    <script src="carts.js"></script>-->
+
 </head>
 
 <body>
@@ -42,9 +41,9 @@
             <td>{{p.title}}</td>
             <td>{{p.price}} $</td>
             <td>
-<!--                <button type="button" class="btn btn-info" ng-click="showProductInfo(p.id)">Информация</button>-->
-<!--                <button type="button" class="btn btn-danger" ng-click="deleteProductById(p.id)">Удалить</button>-->
-               <button type="button" class="btn btn-success" ng-click="addToCart(p.id)">В корзину</button>
+                <!--                <button type="button" class="btn btn-info" ng-click="showProductInfo(p.id)">Информация</button>-->
+                <!--                <button type="button" class="btn btn-danger" ng-click="deleteProductById(p.id)">Удалить</button>-->
+                <button type="button" class="btn btn-success" ng-click="addToCart(p.id)">В корзину</button>
 
             </td>
         </tr>
@@ -54,7 +53,7 @@
     <h3>Корзина</h3>
     <button type="button" class="btn btn-warning" ng-click="clearCart()">Вывалить корзину на пол и забыть</button>
 
-    <table class="table table-hover" >
+    <table class="table table-hover">
         <tr>
             <td>Название</td>
             <td>Количество</td>
@@ -65,15 +64,22 @@
         <tr ng-repeat="item in cart.items">
             <td>{{item.productTitle}}</td>
             <td>{{item.quantity}}
-<!--                можно будетдобавить поле с вводом цифры и можно будет использовать эту же ф-ию-->
-                    <button type="button" class="btn btn-secondary" ng-click="setCountItem(item.productId,item.quantity-1)">-</button>
-                    <button type="button" class="btn btn-secondary" ng-click="setCountItem(item.productId,item.quantity+1)">+</button>
-<!--                    <button type="button" class="btn btn-secondary" ng-click="decreaseCountItem(item.productId)">-</button>-->
-<!--                    <button type="button" class="btn btn-secondary" ng-click="increaseCountItem(item.productId)">+</button>-->
+                <!--                можно будетдобавить поле с вводом цифры и можно будет использовать эту же ф-ию-->
+                <button type="button" class="btn btn-secondary" ng-click="setCountItem(item.productId,item.quantity-1)">
+                    -
+                </button>
+                <button type="button" class="btn btn-secondary" ng-click="setCountItem(item.productId,item.quantity+1)">
+                    +
+                </button>
+                <!--                    <button type="button" class="btn btn-secondary" ng-click="decreaseCountItem(item.productId)">-</button>-->
+                <!--                    <button type="button" class="btn btn-secondary" ng-click="increaseCountItem(item.productId)">+</button>-->
 
             </td>
-            <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + item.price}} $</td>
-            <td><button type="button" class="btn btn-danger" ng-click="deleteItemFromCart(item.productId)">Удалить</button></td>
+            <td>{{item.pricePerProduct + ' $ x ' + item.quantity + ' = ' + item.price}} $</td>
+            <td>
+                <button type="button" class="btn btn-danger" ng-click="deleteItemFromCart(item.productId)">Удалить
+                </button>
+            </td>
         </tr>
         <tr>
             <td>С вас:</td>

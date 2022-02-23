@@ -1,12 +1,14 @@
 package ru.gb.springShop.dtos;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import ru.gb.springShop.entities.Product;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Data
 public class Cart {
     private List<CartItem> items;
@@ -22,73 +24,52 @@ public class Cart {
     }
 
 
-    //todo проверка добаленного продукта. пересчет количества и стоимости
     public void add(Product product) {
-        CartItem addingItem = new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice());
-        //что лучше переопределит хеш и equals и по нему найи индекс или тупо перебором?
-        //если корзина небольшая, то проще перебором. ну а я замахнулся на корзину в милион товаров)).
-        //перебором мне не понравилось. не красиво выглядит код.
-
-
-        int index = items.indexOf(addingItem);
-
-        if (index != -1) {
-            items.get(index).setQuantity(items.get(index).getQuantity() + 1);
-            //цену берем из product, на случай если за время существования корзины измениалсь цена в БД. покупать надо по актульной цене.
-            //         items.get(index).setPricePerProduct(product.getPrice() );
-            items.get(index).setPrice(product.getPrice() * ((items.get(index).getQuantity())));
-        } else {
-            items.add(addingItem);
+        for (CartItem item : items) {
+            if (product.getId().equals(item.getProductId())) {
+                item.changeQuantity(item.getQuantity() + 1);
+                recalculate();
+                return;
+            }
         }
+        items.add(new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice()));
         recalculate();
     }
 
 
-    public void deleteItemFromCart(Long id) {
-        items.remove(FindItemByProductID(id));
-        recalculate();
+    public void remove(Long productId) {
+        if (items.removeIf(item -> item.getProductId().equals(productId))) {
+            recalculate();
+        }
     }
 
 
-    public void setCount(Long id, int count) {
-        CartItem tmp = FindItemByProductID(id);
-        tmp.setQuantity(count);
-        recalculate();
+    public void setCount(Long id, Integer count) {
+//не удаляю из корзины при счетчике =0, если покупаль передумает или случайно пригонит к нулу, то не придется снова искать продукт в каталоге.
+//в оформлении заказа нулевые будем игнорировать.
+        for (CartItem item : items) {
+            if (id.equals(item.getProductId())) {
+                item.changeQuantity(count);
+                recalculate();
+                return;
+            }
+        }
     }
-
 
     //новый пересчет корзины
     private void recalculate() {
         totalPrice = 0;
         for (CartItem item : items) {
-            item.setPrice(item.getPricePerProduct() * ((item.getQuantity())));
             totalPrice += item.getPrice();
-
-
         }
+
     }
 
-    private CartItem FindItemByProductID(Long id) {
-        for (CartItem item : items) {
-            if (item.getProductId() == id)
-                return item;
-        }
-        //пагубная практика -возвращать null, но пока не придумал решения
-        return null;
-    }
 
-    public void clearCart() {
-        System.out.println("qwsdasczxcs");
+    public void clear() {
         items.clear();
-        recalculate();
-
+        totalPrice = 0;
     }
 
-
-//
-//    private CartItem FindItemByProduct(Product product) {
-//        return items.get(items.indexOf(product));
-//
-//    }
 
 }
