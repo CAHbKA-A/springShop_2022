@@ -13,7 +13,6 @@ import ru.gb.springShop.entities.Role;
 import ru.gb.springShop.entities.User;
 import ru.gb.springShop.repositories.UserRepository;
 
-
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;

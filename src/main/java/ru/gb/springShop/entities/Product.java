@@ -1,11 +1,13 @@
 package ru.gb.springShop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -30,6 +32,13 @@ public class Product {
     private String description;
 
 
+    @CreationTimestamp //хибирнетовская антоация! автодобавление
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
+    @UpdateTimestamp//хибирнетовская антоация! автоапдейт
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
+//
 }

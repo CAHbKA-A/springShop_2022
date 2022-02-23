@@ -1,36 +1,47 @@
 package ru.gb.springShop.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.springShop.entities.Cart;
-import ru.gb.springShop.entities.Product;
+import ru.gb.springShop.dtos.Cart;
 import ru.gb.springShop.services.CartService;
 
-import java.util.List;
-import java.util.Set;
-
-
+@Slf4j
 @RestController
-@RequestMapping("/api/v1/carts")
+@RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
-
 public class CartController {
-    //Подключаем сервисы (финал -в обяз)
     private final CartService cartService;
 
+    @GetMapping("/add/{id}")
+    public void addToCart(@PathVariable Long id) {
+        cartService.add(id);
+    }
 
-    //вытягивание всего списка
+
+    @GetMapping("/deleteItem/{id}")
+    public void deleteItemFromCart(@PathVariable Long id) {
+        cartService.deleteItemFromCart(id);
+    }
+
+
+    @GetMapping("/SetCountItem")
+    @ResponseBody
+
+    public void getCount(@RequestParam Long id, int count) {
+        log.info("check. set for pr " + id + "  count= " + count);
+        cartService.setCountItemInCart(id, count);
+    }
+
+    @GetMapping("/clear")
+    @ResponseBody
+    public void clearCart() {
+        cartService.clear();
+    }
+
+
     @GetMapping
-    public List<Product>  findAllCarts() {
-        return cartService.findAll();
+    public Cart getCurrentCart() {
+        return cartService.getCurrentCart();
     }
-
-    //удаляем объект по id
-    @DeleteMapping("/{id}")
-    void deleteCartById(@PathVariable Long id) {
-        cartService.deleteById(id);
-    }
-
-
-
 }
