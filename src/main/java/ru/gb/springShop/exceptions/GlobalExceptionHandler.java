@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler //чтобы создался этот эксепшн хендлен и перехватывал исключения
     public ResponseEntity<AppError> exceptionHandler(ResourceNotFoundException e) {
         //если поймали исключение
-        log.error(e.getMessage(), e); //логер идет в спринге с @Slf4j. подклчать отдбно не требуется!!
+        log.error(e.getMessage(), e); //логер идет в спринге с @Slf4j. подклчать отдельно не требуется!!
         return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 

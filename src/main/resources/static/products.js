@@ -110,8 +110,29 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         }
 
 
+        $scope.createOrder = function () {
+            $http.post('http://localhost:8189/shop/api/v1/orders').then(function (response) {
+                $scope.loadCart();
+            });
+        }
 
-/*действия при подключении JS*/
+
+
+
+
+        $scope.createOrder = function () {
+
+            $http.post('http://localhost:8189/shop/api/v1/orders', $scope.user)
+                .then(function successCallback(response) { //HttpStatus.CREATED)
+                //reload или перейти  на страницу заказов
+                }, function errorCallback(response) {
+                    alert("need to login")
+                });
+        };
+
+
+
+        /*действия при подключении JS*/
 
 //при загрузе страницы проверяем,еcть ли данные о юзере в локальном хранилище и не просрочен ли токен/
         if ($localStorage.ownUser) {

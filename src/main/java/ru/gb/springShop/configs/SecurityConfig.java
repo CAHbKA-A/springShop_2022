@@ -31,7 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //доступ к эндпоинту только для авторизованных
                 .antMatchers("/auth_check").authenticated()  //доступ к эндпоинту проверки авторизации только для авторизованных
-                .anyRequest().permitAll()
+                .antMatchers("/api/v1/orders").authenticated()  //доступ к эндпоинту проверки авторизации только для авторизованных
+                 .anyRequest().permitAll()
                 .and()
                 //не используем сессию дла rest
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

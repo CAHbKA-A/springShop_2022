@@ -1,6 +1,5 @@
 package ru.gb.springShop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,27 +8,36 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "order_items")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class OrderItem {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "address")
-    private String address;
 
-    @Column(name = "phone")
-    private String phone;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @Column(name = "total_price")
-    private int totalPrice;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+
+    @Column(name = "quantity")
+    private int quantity;
+
+    @Column(name = "price_per_product")
+    private int pricePerProduct;
+
+    @Column(name = "price")
+    private int price;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -40,13 +48,10 @@ public class Order {
     private LocalDateTime updatedAt;
 
 
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(mappedBy = "order" /*,cascade = CascadeType.MERGE*/)
-    private List<OrderItem> items;
-
-
+    public OrderItem(Product product, int quantity, int pricePerProduct, int price) {
+        this.product = product;
+        this.quantity = quantity;
+        this.pricePerProduct = pricePerProduct;
+        this.price = price;
+    }
 }

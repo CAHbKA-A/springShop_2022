@@ -29,7 +29,7 @@ public class CartController {
     @ResponseBody
 
     public void getCount(@RequestParam Long id, int count) {
-        log.info("check. set for pr " + id + "  count= " + count);
+     //   log.info("set for pr " + id + "  count= " + count);
         cartService.setCountItemInCart(id, count);
     }
 
