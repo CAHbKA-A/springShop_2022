@@ -1,4 +1,4 @@
-package ru.gb.springShop.dtos;
+package ru.gb.springShop.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +18,6 @@ public class CartItem {
 
     public void changeQuantity(int count) {
         quantity = count;
-      //  quantity += delta;
         price = pricePerProduct * quantity;
     }
 }

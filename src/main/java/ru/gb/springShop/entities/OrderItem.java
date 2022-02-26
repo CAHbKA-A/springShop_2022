@@ -48,10 +48,4 @@ public class OrderItem {
     private LocalDateTime updatedAt;
 
 
-    public OrderItem(Product product, int quantity, int pricePerProduct, int price) {
-        this.product = product;
-        this.quantity = quantity;
-        this.pricePerProduct = pricePerProduct;
-        this.price = price;
-    }
 }

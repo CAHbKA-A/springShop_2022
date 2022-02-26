@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gb.springShop.dtos.JwtRequest;
 import ru.gb.springShop.dtos.JwtResponse;
-import ru.gb.springShop.dtos.StringResponse;
+import ru.gb.springShop.entities.StringResponse;
 import ru.gb.springShop.services.UserService;
 import ru.gb.springShop.utils.JwtTokenUtil;
 

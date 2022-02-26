@@ -3,7 +3,7 @@ package ru.gb.springShop.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.springShop.dtos.Cart;
+import ru.gb.springShop.entities.Cart;
 import ru.gb.springShop.services.CartService;
 
 @Slf4j

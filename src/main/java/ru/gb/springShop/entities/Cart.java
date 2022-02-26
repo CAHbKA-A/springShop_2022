@@ -1,8 +1,7 @@
-package ru.gb.springShop.dtos;
+package ru.gb.springShop.entities;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import ru.gb.springShop.entities.Product;
 
 import java.util.ArrayList;
 import java.util.Collections;

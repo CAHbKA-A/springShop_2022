@@ -126,7 +126,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
                 .then(function successCallback(response) { //HttpStatus.CREATED)
                 //reload или перейти  на страницу заказов
                 }, function errorCallback(response) {
-                    alert("need to login")
+                    alert("error")
                 });
         };
 

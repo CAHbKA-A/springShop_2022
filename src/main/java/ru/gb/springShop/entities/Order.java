@@ -1,6 +1,5 @@
 package ru.gb.springShop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +21,13 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "order" /*,cascade = CascadeType.PERSIST*/)
+    private List<OrderItem> items;
+
     @Column(name = "address")
     private String address;
 
@@ -38,15 +44,6 @@ public class Order {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(mappedBy = "order" /*,cascade = CascadeType.MERGE*/)
-    private List<OrderItem> items;
 
 
 }
