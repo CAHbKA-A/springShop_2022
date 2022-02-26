@@ -3,7 +3,7 @@ package ru.gb.springShop.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.springShop.dtos.Cart;
+import ru.gb.springShop.entities.Cart;
 import ru.gb.springShop.services.CartService;
 
 @Slf4j
@@ -29,7 +29,7 @@ public class CartController {
     @ResponseBody
 
     public void getCount(@RequestParam Long id, int count) {
-        log.info("check. set for pr " + id + "  count= " + count);
+     //   log.info("set for pr " + id + "  count= " + count);
         cartService.setCountItemInCart(id, count);
     }
 

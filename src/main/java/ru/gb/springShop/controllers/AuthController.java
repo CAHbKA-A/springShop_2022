@@ -1,6 +1,7 @@
 package ru.gb.springShop.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.gb.springShop.dtos.JwtRequest;
 import ru.gb.springShop.dtos.JwtResponse;
+import ru.gb.springShop.entities.StringResponse;
 import ru.gb.springShop.services.UserService;
 import ru.gb.springShop.utils.JwtTokenUtil;
 
+import java.security.Principal;
+
 //контроллер аутентификации
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
@@ -44,8 +49,12 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    @GetMapping("/secured")
-    public String helloSecurity() {
-        return "Hello";
+
+
+//пример проверки авторизацмм. (при обращениии на эндпоинт возвращает имя. Principal - это запись в security контаксте
+    @GetMapping("/auth_check")
+    public StringResponse authCheck(Principal principal) {
+        log.info("check AuthController");
+        return new StringResponse(principal.getName());
     }
 }

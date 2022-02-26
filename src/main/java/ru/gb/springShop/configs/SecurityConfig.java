@@ -29,9 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 //даем доступ ко всем точкам
                 .authorizeRequests()
-                /* //доступ к эндпоинту только для авторизованных
-                 .antMatchers("/closed").authenticated()*/
-                .anyRequest().permitAll()
+                //доступ к эндпоинту только для авторизованных
+                .antMatchers("/auth_check").authenticated()  //доступ к эндпоинту проверки авторизации только для авторизованных
+                .antMatchers("/api/v1/orders").authenticated()  //доступ к эндпоинту проверки авторизации только для авторизованных
+                 .anyRequest().permitAll()
                 .and()
                 //не используем сессию дла rest
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

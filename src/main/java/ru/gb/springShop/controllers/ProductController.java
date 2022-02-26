@@ -31,9 +31,6 @@ public class ProductController {
     }
 
 
-
-
-
     /*объемный вариант*/
     //выдергиваем  объект по id
 /*      @GetMapping("/{id}")

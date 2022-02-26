@@ -2,7 +2,7 @@ package ru.gb.springShop.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.gb.springShop.dtos.Cart;
+import ru.gb.springShop.entities.Cart;
 import ru.gb.springShop.entities.Product;
 import ru.gb.springShop.exceptions.ResourceNotFoundException;
 
