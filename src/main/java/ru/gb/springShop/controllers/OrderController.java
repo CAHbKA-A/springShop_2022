@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.convertors.OrderConvertor;
 import ru.gb.springShop.dtos.OrderDto;
 import ru.gb.springShop.entities.Order;
+import ru.gb.springShop.entities.OrderData;
 import ru.gb.springShop.entities.User;
 import ru.gb.springShop.exceptions.ResourceNotFoundException;
 import ru.gb.springShop.services.OrderService;
@@ -27,10 +28,12 @@ public class OrderController {
     //если прилетел post,создаем заказ
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOrder(Principal principal /*, @RequestBody OrderData orderData */) {
-        log.info("try to create order");
+    public void createOrder(Principal principal, @RequestBody OrderData orderData) {
+
+        log.info("try to create order with Data "+orderData);
+
         User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Пользователь не найден, Username: " + principal.getName()));
-        orderService.createNewOrder(user);
+        orderService.createNewOrder(user,orderData);
     }
 
     @GetMapping("/{id}")

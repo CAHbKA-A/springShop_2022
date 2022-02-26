@@ -3,10 +3,7 @@ package ru.gb.springShop.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.gb.springShop.entities.CartItem;
-import ru.gb.springShop.entities.Order;
-import ru.gb.springShop.entities.OrderItem;
-import ru.gb.springShop.entities.User;
+import ru.gb.springShop.entities.*;
 import ru.gb.springShop.repositories.OrderItemRepository;
 import ru.gb.springShop.repositories.OrderRepository;
 
@@ -23,10 +20,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
 
-//
-//    public Optional<Order> findByUserId(Long id) {
-//        return orderRepository.findByUserId(id);
-//    }
+
 
     public Optional<Order> findById(Long id) {
         return orderRepository.findById(id);
@@ -52,10 +46,13 @@ public class OrderService {
     }
 
 
-    public Order createNewOrder(User user) {
+    public Order createNewOrder(User user, OrderData orderData) {
         log.info(user.getUsername() + " creating order");
+        //todo в Stream
         Order order = new Order();
         order.setUser(user);
+        order.setAddress(orderData.getAddress());
+        order.setPhone(orderData.getPhone());
         order.setTotalPrice(cartService.getCurrentCart().getTotalPrice());
         order.setItems(cartToOrderItems());
         orderRepository.save(order);

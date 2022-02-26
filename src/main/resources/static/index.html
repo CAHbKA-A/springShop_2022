@@ -128,13 +128,28 @@
         </tr>
         <tr>
             <td>С вас:</td>
-            <td></td>
             <td>{{cart.totalPrice}} $</td>
-            <td>  <button type="button" class="btn btn-success" ng-click="createOrder()">Оформить заказ</button>
-            </td>
         </tr>
+        <tr>
+            <form class="align-middle" ng-submit="createOrder()">
+                <td>
+                    <div class="input-group input-group-sm" style="padding: 4px;">
+                        <input id="userAddres" class="form-control" ng-model="user.address" type="text"
+                               style="margin-right: 10px;"  placeholder="664035 NY City/ Обязательно!!">
+                        <input id="userPhone" class="form-control" ng-model="user.phone" type="text"
+                               style="margin-right: 10px;" placeholder="+7914918111/ Обязательно!!">
+                        <button type="button" class="btn btn-success" ng-click="createOrder()"  type="submit">Оформить
+                            заказ
+                        </button>
+                    </div>
+                </td>
+            </form>
+        </tr>
+
         </tbody>
+
     </table>
+
 
 </div>
 
