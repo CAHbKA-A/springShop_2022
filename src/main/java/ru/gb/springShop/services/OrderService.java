@@ -25,6 +25,7 @@ public class OrderService {
     public Optional<Order> findById(Long id) {
         return orderRepository.findById(id);
     }
+    public List<Order> findAllOrders () {  return orderRepository.findAll(); }
 
 
     private List<OrderItem> cartToOrderItems() {
@@ -57,7 +58,7 @@ public class OrderService {
         order.setItems(cartToOrderItems());
         orderRepository.save(order);
         saveItemsList(order.getItems(), order.getId());
-
+        cartService.clear();
         return order;
     }
 

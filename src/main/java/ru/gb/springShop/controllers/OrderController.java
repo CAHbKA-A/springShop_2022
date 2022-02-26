@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.convertors.OrderConvertor;
 import ru.gb.springShop.dtos.OrderDto;
+import ru.gb.springShop.dtos.ProductDto;
 import ru.gb.springShop.entities.Order;
 import ru.gb.springShop.entities.OrderData;
 import ru.gb.springShop.entities.User;
@@ -14,6 +15,8 @@ import ru.gb.springShop.services.OrderService;
 import ru.gb.springShop.services.UserService;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -30,10 +33,10 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createOrder(Principal principal, @RequestBody OrderData orderData) {
 
-        log.info("try to create order with Data "+orderData);
+        log.info("try to create order with Data " + orderData);
 
         User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Пользователь не найден, Username: " + principal.getName()));
-        orderService.createNewOrder(user,orderData);
+        orderService.createNewOrder(user, orderData);
     }
 
     @GetMapping("/{id}")
@@ -42,5 +45,12 @@ public class OrderController {
         return orderConvertor.entityToDto(o);
     }
 
+
+
+    @GetMapping
+    public List<OrderDto> findAllProducts() {
+      return orderConvertor.listToDto(orderService.findAllOrders());
+
+    }
 
 }

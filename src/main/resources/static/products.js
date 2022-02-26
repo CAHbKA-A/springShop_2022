@@ -54,6 +54,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
         $scope.loadProducts = function () {
             $http.get('http://localhost:8189/shop/api/v1/products').then(function (response) {
+               // console.log(response.data);
                 $scope.productsList = response.data;
             });
         }
@@ -77,6 +78,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
         $scope.loadCart = function () {
             $http.get('http://localhost:8189/shop/api/v1/cart').then(function (response) {
+
                 $scope.cart = response.data;
 
             });
@@ -119,15 +121,19 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
 
 
-
+        //todo сохранение в локальное хранилище браузера телефона и адреса. или подтягивать из бд
         $scope.createOrder = function () {
 
             $http.post('http://localhost:8189/shop/api/v1/orders', $scope.user)
                 .then(function successCallback(response) { //HttpStatus.CREATED)
                 //reload или перейти  на страницу заказов
+                    $scope.loadCart();
+                    $scope.loadOrders();
+
                 }, function errorCallback(response) {
-                    alert("error")
+                    alert("error. или не ввели адрес телефон или косяк на бэке. пока не разделяю")
                 });
+
         };
 
 
@@ -153,10 +159,25 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         }
 
 
+
+
+        $scope.loadOrders = function () {
+            $http.get('http://localhost:8189/shop/api/v1/orders').then(function (response) {
+             //   console.log(response.data);
+                $scope.orderList = response.data;
+            });
+        }
+
+
+
+
+
 //вызываем список продуктов
         $scope.loadProducts();
 //вызываем корзину
         $scope.loadCart();
+//список заказов
+       $scope.loadOrders();
 
         console.log('end');
     }

@@ -135,10 +135,10 @@
                 <td>
                     <div class="input-group input-group-sm" style="padding: 4px;">
                         <input id="userAddres" class="form-control" ng-model="user.address" type="text"
-                               style="margin-right: 10px;"  placeholder="664035 NY City/ Обязательно!!">
+                               style="margin-right: 10px;" placeholder="664035 NY City/ Обязательно!!">
                         <input id="userPhone" class="form-control" ng-model="user.phone" type="text"
                                style="margin-right: 10px;" placeholder="+7914918111/ Обязательно!!">
-                        <button type="button" class="btn btn-success" ng-click="createOrder()"  type="submit">Оформить
+                        <button type="button" class="btn btn-success" ng-click="createOrder()" type="submit">Оформить
                             заказ
                         </button>
                     </div>
@@ -150,8 +150,28 @@
 
     </table>
 
+    <h3>Ваши заказы</h3>
+    <table class="table table-hover">
+        <tr>
+            <td>Номер заказа</td>
+            <td>Дата</td>
+            <td>Сумма</td>
+
+        </tr>
+        <tbody>
+
+        <tr ng-repeat="o in orderList">
+            <td>{{o.id}}</td>
+            <td>{{o.createdAt}}</td>
+            <td>{{o.totalPrice}} $</td>
+
+        </tr>
+        </tbody>
+    </table>
 
 </div>
 
 </body>
 </html>
+
+
