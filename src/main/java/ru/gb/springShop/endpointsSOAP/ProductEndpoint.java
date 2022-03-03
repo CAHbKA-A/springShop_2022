@@ -36,7 +36,7 @@ public class ProductEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllProductSOAPRequest")
     @ResponsePayload
     public GetAllProductSOAPResponse getAllSOAPProducts(@RequestPayload GetAllProductSOAPRequest request) {
-        log.info("!!!!ProductEndpoint!!!!");
+        log.info("!!!!ProductEndpoint!!!!");/// до сюда даже не доходит.
         GetAllProductSOAPResponse response = new GetAllProductSOAPResponse();
         productSoapService.getAllProducts().forEach(response.getProducts()::add);
         return response;

@@ -17,14 +17,6 @@
         <xs:complexType/>
     </xs:element>
 
-<!--    &lt;!&ndash;    запрос по стринговому полю&ndash;&gt;-->
-<!--    <xs:element name="getProductSOAPTitleResponse">-->
-<!--        <xs:complexType>-->
-<!--            <xs:sequence>-->
-<!--                <xs:element name="title" type="xs:string"/>-->
-<!--            </xs:sequence>-->
-<!--        </xs:complexType>-->
-<!--    </xs:element>-->
 
     <!--    запрос по объекту-->
     <xs:element name="getProductSOAPByIdResponse">
