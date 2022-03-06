@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
-
+@CrossOrigin("*") // временный обход секьюрити
 public class ProductController {
     //Подключаем сервисы (финал -в обяз)
     private final ProductService productService;
@@ -31,24 +31,7 @@ public class ProductController {
     }
 
 
-    /*объемный вариант*/
-    //выдергиваем  объект по id
-/*      @GetMapping("/{id}")
-    //возварщать будем респонс записль либо с ошибкой , либо с продуктом
-  public ResponseEntity<?> findProductById(@PathVariable Long id) {
-        //обработка ошибок
-        Optional<Product> product = productService.findById(id);
-        //Если не найден продукт
-        if (!product.isPresent()) {
-            //ответка от апи в сторону js.  упаковываем в json
-            // HttpStatus - это enum, который содержит все статусы
-            ResponseEntity<AppError> error = new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), "Продукт не найден, id: " + id), HttpStatus.NOT_FOUND);//последний аргумент - стаким статускодом прилетит ответ(поимо json'a
-            return error;
-        }
-        return new ResponseEntity<>(product.get(),HttpStatus.OK);
-    }
-*/
-    /*вариант поменьше*/
+
 
     @GetMapping("/{id}")
 

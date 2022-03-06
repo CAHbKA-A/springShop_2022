@@ -106,7 +106,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
 
         $scope.clearCart = function () {
-            $http.get('http://localhost:8189/shop-carts/api/v1/cart/clear').then(function (response) {
+            $http.delete('http://localhost:8181/shop-carts/api/v1/cart/clear').then(function (response) {
                 $scope.loadCart();
             });
         }
@@ -177,7 +177,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 //вызываем корзину
         $scope.loadCart();
 // //список заказов
-//        $scope.loadOrders();
+       $scope.loadOrders();
 
         console.log('end');
     }
