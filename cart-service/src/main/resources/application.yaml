@@ -3,3 +3,7 @@ server:
   servlet:
     context-path: /shop-carts
 
+
+integration:
+  url: "http://localhost:8189"
+

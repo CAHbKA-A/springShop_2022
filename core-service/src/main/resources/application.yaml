@@ -26,3 +26,6 @@ jwt:
 #  key for coding and checking token
   secret: 54y5hy67ik9##%Y%h589o8kuhgh45u67jngyj7t7jfhg#$
   lifetime: 98000000
+
+integration:
+  url: "http://localhost:8181"
