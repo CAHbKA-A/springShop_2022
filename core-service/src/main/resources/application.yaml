@@ -28,4 +28,4 @@ jwt:
   lifetime: 98000000
 
 integration:
-  url: "http://localhost:8181"
+  urlCart: "http://localhost:8181/shop-carts/api/v1/cart"

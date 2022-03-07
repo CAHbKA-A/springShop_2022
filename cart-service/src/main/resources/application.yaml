@@ -5,5 +5,5 @@ server:
 
 
 integration:
-  url: "http://localhost:8189"
+  urlCore: "http://localhost:8189/shop/api/v1/products"
 

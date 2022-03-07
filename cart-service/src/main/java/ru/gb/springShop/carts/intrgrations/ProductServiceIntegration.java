@@ -13,13 +13,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductServiceIntegration {
 
-    @Value("${integration.url}")
+    @Value("${integration.urlCore}")
     private String URL;
 
 
     private final RestTemplate restTemplate;
 
     public Optional<ProductDto> getProductById(Long id) {
-        return Optional.ofNullable(restTemplate.getForObject(URL + "/shop/api/v1/products/" + id, ProductDto.class));
+        return Optional.ofNullable(restTemplate.getForObject(URL + "/" + id, ProductDto.class));
     }
 }

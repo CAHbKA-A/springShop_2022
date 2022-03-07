@@ -12,18 +12,18 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class CartServiceIntegration {
-    @Value("${integration.url}")
+    @Value("${integration.urlCart}")
     private String URL;
 
 
     private final RestTemplate restTemplate;
 
     public Optional<CartDto> getCart() {
-        return Optional.ofNullable(restTemplate.getForObject(URL+"/shop-carts/api/v1/cart" , CartDto.class));
+        return Optional.ofNullable(restTemplate.getForObject(URL , CartDto.class));
     }
 
     public void  clear() {
-       restTemplate.delete(URL+"/shop-carts/api/v1/cart/clear" );
+       restTemplate.delete(URL+"/clear" );
     }
 
 }
