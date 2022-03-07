@@ -18,8 +18,10 @@ import java.util.List;
 
 @Slf4j
 @RestController
+
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
+@CrossOrigin("*") // временный обход секьюрити
 public class OrderController {
     private final UserService userService;
     private final OrderService orderService;
