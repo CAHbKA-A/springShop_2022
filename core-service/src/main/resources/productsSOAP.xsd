@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:tns="http://www.flamexander.com/spring/soap/products"
+        targetNamespace="http://www.flamexander.com/spring/soap/products" elementFormDefault="qualified">
+    <!--по id-->
+    <xs:element name="getProductSOAPByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--    запрос для всех. ,без фильтров-->
+    <xs:element name="getAllProductSOAPRequest">
+        <xs:complexType/>
+    </xs:element>
+
+
+    <!--    запрос по объекту-->
+    <xs:element name="getProductSOAPByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="productSOAP" type="tns:productSOAP"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+<!--запрос всех с фильтром-->
+    <xs:element name="getAllProductSOAPResponse">
+        <xs:complexType>
+            <xs:sequence>
+<!--  ограничени количества (без ограничений)              -->
+                <xs:element name="products" maxOccurs="unbounded" type="tns:productSOAP"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+<!--    описываем тип -->
+    <xs:complexType name="productSOAP">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="price" type="xs:int"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
