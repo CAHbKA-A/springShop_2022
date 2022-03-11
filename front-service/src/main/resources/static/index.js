@@ -8,7 +8,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
        //функция авторизации (нажали кнопку войти
         $scope.tryToAuth = function () {
-            $http.post('http://localhost:8189/shop/auth', $scope.user) //адрес аутентификации. отправляем объект user.
+            $http.post('http://localhost:5555/auth/auth', $scope.user) //адрес аутентификации. отправляем объект user.
                 .then(function successCallback(response) { //если  авторизация прошла успешно (с бэка пришел ответ положительный)
                     if (response.data.token) { //выдергиваем из ответа токен.если получили токен
                         $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;//добавляем в дефолтный херед. чтобы браузер всегда отправлял токен
@@ -44,16 +44,16 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             }
         };
 
-        //функционал запроса своего логина (проверка авторизации)
-        $scope.authCheck = function () {
-            $http.get('http://localhost:8189/shop/auth_check').then(function (response) {
-                alert(response.data.value); //высплывающее окно с полученой строкой
-            });
-        };
+        // //функционал запроса своего логина (проверка авторизации)
+        // $scope.authCheck = function () {
+        //     $http.get('http://localhost:5555/core/auth_check').then(function (response) {
+        //         alert(response.data.value); //высплывающее окно с полученой строкой
+        //     });
+        // };
 
 
         $scope.loadProducts = function () {
-            $http.get('http://localhost:8189/shop/api/v1/products').then(function (response) {
+            $http.get('http://localhost:5555/core/api/v1/products').then(function (response) {
                // console.log(response.data);
                 $scope.productsList = response.data;
             });
@@ -61,7 +61,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
 
         $scope.showProductInfo = function (id) {
-            $http.get('http://localhost:8189/shop/api/v1/products/' + id).then(function (response) {
+            $http.get('http://localhost:5555/core/api/v1/products/' + id).then(function (response) {
                 //вспывающее окно
                 alert(response.data.description);
             });
@@ -69,7 +69,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
 
         $scope.deleteProductById = function (id) {
-            $http.delete('http://localhost:8189/shop/api/v1/products/' + id).then(function (response) {
+            $http.delete('http://localhost:5555/core/api/v1/products/' + id).then(function (response) {
                 //обновляем
                 $scope.loadProducts();
             });
@@ -77,7 +77,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
 
         $scope.loadCart = function () {
-            $http.get('http://localhost:8181/shop-carts/api/v1/cart').then(function (response) {
+            $http.get('http://localhost:5555/cart/api/v1/cart').then(function (response) {
 
                 $scope.cart = response.data;
 
@@ -86,34 +86,34 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
 
         $scope.deleteItemFromCart = function (id) {
-            $http.get('http://localhost:8181/shop-carts/api/v1/cart/deleteItem/' + id).then(function (response) {
+            $http.get('http://localhost:5555/cart/api/v1/cart/deleteItem/' + id).then(function (response) {
                 $scope.loadCart();
             });
         }
 
 
         $scope.addToCart = function (productId) {
-            $http.get('http://localhost:8181/shop-carts/api/v1/cart/add/' + productId).then(function (response) {
+            $http.get('http://localhost:5555/cart/api/v1/cart/add/' + productId).then(function (response) {
                 $scope.loadCart();
             });
         }
 
         $scope.setCountItem = function (productId, count) {
-            $http.get('http://localhost:8181/shop-carts/api/v1/cart/SetCountItem?id=' + productId + '&count=' + count).then(function (response) {
+            $http.get('http://localhost:5555/cart/api/v1/cart/SetCountItem?id=' + productId + '&count=' + count).then(function (response) {
                 $scope.loadCart();
             });
         }
 
 
         $scope.clearCart = function () {
-            $http.delete('http://localhost:8181/shop-carts/api/v1/cart/clear').then(function (response) {
+            $http.get('http://localhost:5555/cart/api/v1/cart/clear').then(function (response) {
                 $scope.loadCart();
             });
         }
 
 
         $scope.createOrder = function () {
-            $http.post('http://localhost:8189/shop/api/v1/orders').then(function (response) {
+            $http.post('http://localhost:5555/core/api/v1/orders').then(function (response) {
                 $scope.loadCart();
             });
         }
@@ -124,7 +124,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         //todo сохранение в локальное хранилище браузера телефона и адреса. или подтягивать из бд
         $scope.createOrder = function () {
 
-            $http.post('http://localhost:8189/shop/api/v1/orders', $scope.user)
+            $http.post('http://localhost:5555/core/api/v1/orders', $scope.user)
                 .then(function successCallback(response) { //HttpStatus.CREATED)
                 //reload или перейти  на страницу заказов
                     $scope.loadCart();
@@ -162,7 +162,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
 
         $scope.loadOrders = function () {
-            $http.get('http://localhost:8189/shop/api/v1/orders').then(function (response) {
+            $http.get('http://localhost:5555/core/api/v1/orders').then(function (response) {
              //   console.log(response.data);
                 $scope.orderList = response.data;
             });
@@ -177,7 +177,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 //вызываем корзину
         $scope.loadCart();
 // //список заказов
-       $scope.loadOrders();
+ //     $scope.loadOrders();
 
         console.log('end');
     }

@@ -1,4 +1,4 @@
-package ru.gb.springShop.core.configs;
+package ru.gb.springShop.auth.configs;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final JwtRequestFilter jwtRequestFilter;
+
 
     //настройка правил
     @Override
@@ -30,8 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //даем доступ ко всем точкам
                 .authorizeRequests()
                 //доступ к эндпоинту только для авторизованных
-                .antMatchers("/auth_check").authenticated()  //доступ к эндпоинту проверки авторизации только для авторизованных
-                .antMatchers("/api/v1/orders").authenticated()  //доступ к эндпоинту проверки авторизации только для авторизованных
+          //      .antMatchers("/auth_check").authenticated()  //доступ к эндпоинту проверки авторизации только для авторизованных
+           //     .antMatchers("/api/v1/orders").authenticated()  //доступ к эндпоинту проверки авторизации только для авторизованных
                  .anyRequest().permitAll()
                 .and()
                 //не используем сессию дла rest
@@ -44,8 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //если ломится неавторизованный - то ошибка 401
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-    }
+ }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

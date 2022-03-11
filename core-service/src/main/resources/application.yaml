@@ -1,7 +1,7 @@
 server:
   port: 8189
   servlet:
-    context-path: /shop
+    context-path: /shop-core
 
 spring:
   datasource:
@@ -22,10 +22,11 @@ spring:
       enabled: true
       settings:
         web-allow-others: false
-jwt:
-#  key for coding and checking token
-  secret: 54y5hy67ik9##%Y%h589o8kuhgh45u67jngyj7t7jfhg#$
-  lifetime: 98000000
 
-integration:
-  urlCart: "http://localhost:8181/shop-carts/api/v1/cart"
+
+integrations:
+  cart-service:
+    url: http://localhost:8181/shop-carts/
+    connect-timeout: 5000
+    read-timeout: 10000
+    write-timeout: 5000

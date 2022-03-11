@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
   // Optional<Order> findByUsername(String username);
-  Optional<Order> findByUserId(Long id);
+ // Optional<Order> findByUserId(Long id);
   Optional<Order> findById(Long id) ;
 
 

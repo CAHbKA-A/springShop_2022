@@ -9,7 +9,7 @@ server:
 
 integrations:
   product-service:
-    url: http://localhost:8189/shop/
+    url: http://localhost:8189/shop-core/
     connect-timeout: 5000
     read-timeout: 10000
     write-timeout: 5000

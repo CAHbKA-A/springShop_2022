@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8189/shop/">SpringShop</a>
+                    <a class="nav-link" href="http://localhost:3000/front/">SpringShop</a>
 
                 </li>
                 <!--если пользователь не залогинен, показывает поля логина и пароля (весь лист до кнопки выйти)-->
@@ -64,6 +64,7 @@
             </ul>
         </div>
     </nav>
+
 
 
     <h1>Магазин</h1>
@@ -150,26 +151,26 @@
 
     </table>
 
-    <h3>Ваши заказы</h3>
-    <table class="table table-hover">
-        <tr>
-            <td>Номер заказа</td>
-            <td>Дата</td>
-            <td>Сумма</td>
-            <td>Статус</td>
+<!--    <h3>Ваши заказы</h3>-->
+<!--    <table class="table table-hover">-->
+<!--        <tr>-->
+<!--            <td>Номер заказа</td>-->
+<!--            <td>Дата</td>-->
+<!--            <td>Сумма</td>-->
+<!--            <td>Статус</td>-->
 
-        </tr>
-        <tbody>
+<!--        </tr>-->
+<!--        <tbody>-->
 
-        <tr ng-repeat="o in orderList">
-            <td>{{o.id}}</td>
-            <td>{{o.createdAt}}</td>
-            <td>{{o.totalPrice}} $</td>
-            <td>---</td>
+<!--        <tr ng-repeat="o in orderList">-->
+<!--            <td>{{o.id}}</td>-->
+<!--            <td>{{o.createdAt}}</td>-->
+<!--            <td>{{o.totalPrice}} $</td>-->
+<!--            <td>-&#45;&#45;</td>-->
 
-        </tr>
-        </tbody>
-    </table>
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
 
 </div>
 

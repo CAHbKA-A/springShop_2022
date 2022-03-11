@@ -33,7 +33,7 @@ private final WebClient productServiceWebClient; //рест убрали, заи
                 .retrieve() //отоправляем запрос. возрващает responseSpec(упаковка над ответом)
                 .onStatus(//перехват статусов
                         httpStatus -> httpStatus.value() == HttpStatus.NOT_FOUND.value(), //если 404
-                        clientResponse -> Mono.error(new ResourceNotFoundException("Товар не найден  МС продукты"))
+                        clientResponse -> Mono.error(new ResourceNotFoundException("ошибка в МС cart. или товар не найден"))
                 )//если статус 200 или 201
                 .bodyToMono(ProductDto.class) //перобразуем тело запроса к дто
                 //тут можно добавить фильтры

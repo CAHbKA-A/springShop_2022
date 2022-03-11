@@ -1,4 +1,4 @@
-package ru.gb.springShop.core.controllers;
+package ru.gb.springShop.auth.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +10,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import ru.gb.springShop.api.AppError;
 import ru.gb.springShop.api.JwtRequest;
 import ru.gb.springShop.api.JwtResponse;
 import ru.gb.springShop.api.StringResponse;
-import ru.gb.springShop.core.utils.JwtTokenUtil;
+import ru.gb.springShop.auth.services.UserService;
+import ru.gb.springShop.auth.utils.JwtTokenUtil;
 
-import ru.gb.springShop.core.services.UserService;
 
 import java.security.Principal;
 
@@ -39,7 +40,7 @@ public class AuthController {
         } catch (BadCredentialsException e) {
             //если нет такого юзера ош401
 
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return new ResponseEntity<>(new AppError(HttpStatus.UNAUTHORIZED.value(), "Incorrect username or password"), HttpStatus.UNAUTHORIZED);
         }
         //если ок идем дальше. выдергиваем юзера из БД (логин+список ролей)
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());

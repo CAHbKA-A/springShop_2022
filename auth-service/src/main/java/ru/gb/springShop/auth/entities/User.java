@@ -1,4 +1,4 @@
-package ru.gb.springShop.core.entities;
+package ru.gb.springShop.auth.entities;
 
 import lombok.Data;
 

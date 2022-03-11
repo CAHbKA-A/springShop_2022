@@ -1,8 +1,9 @@
-package ru.gb.springShop.core.repositories;
+package ru.gb.springShop.auth.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.gb.springShop.core.entities.User;
+import ru.gb.springShop.auth.entities.User;
+
 
 import java.util.Optional;
 

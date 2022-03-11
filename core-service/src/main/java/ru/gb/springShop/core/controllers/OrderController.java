@@ -8,12 +8,7 @@ import ru.gb.springShop.api.OrderDto;
 import ru.gb.springShop.api.ResourceNotFoundException;
 import ru.gb.springShop.core.convertors.OrderConvertor;
 import ru.gb.springShop.core.entities.Order;
-import ru.gb.springShop.core.entities.OrderData;
-import ru.gb.springShop.core.entities.User;
 import ru.gb.springShop.core.services.OrderService;
-import ru.gb.springShop.core.services.UserService;
-
-import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -21,9 +16,8 @@ import java.util.List;
 
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
-@CrossOrigin("*") // временный обход секьюрити
 public class OrderController {
-    private final UserService userService;
+
     private final OrderService orderService;
     private final OrderConvertor orderConvertor;
 
@@ -31,12 +25,8 @@ public class OrderController {
     //если прилетел post,создаем заказ
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOrder(Principal principal, @RequestBody OrderData orderData) {
-
-        log.info("try to create order with Data " + orderData);
-
-        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("Пользователь не найден, Username: " + principal.getName()));
-        orderService.createNewOrder(user, orderData);
+    public void createOrder(@RequestHeader String username /*, @RequestBody OrderData orderData */) {
+        orderService.createOrder(username);
     }
 
     @GetMapping("/{id}")

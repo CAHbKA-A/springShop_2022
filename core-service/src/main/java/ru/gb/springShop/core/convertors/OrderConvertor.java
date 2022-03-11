@@ -16,7 +16,7 @@ public class OrderConvertor {
     public OrderDto entityToDto(Order order) {
         OrderDto o = new OrderDto();
         o.setId(order.getId());
-        o.setUsername(order.getUser().getUsername());
+     //  o.setUsername(order.getUser().getUsername());
         o.setTotalPrice(order.getTotalPrice());
         o.setCreatedAt(order.getCreatedAt());
       //  o.setOrderItems(order.getItems().stream().map(orderItemConverter::entityToDto).collect(Collectors.toList()));

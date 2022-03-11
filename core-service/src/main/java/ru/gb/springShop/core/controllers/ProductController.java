@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
-@CrossOrigin("*") // временный обход секьюрити
+
 public class ProductController {
     //Подключаем сервисы (финал -в обяз)
     private final ProductService productService;

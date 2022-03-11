@@ -1,4 +1,4 @@
-package ru.gb.springShop.core.utils;
+package ru.gb.springShop.auth.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -56,27 +56,27 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-
-    /*     разбор токена*/
-
-//выдергиваем имя юзера , оно же  тема токена.  из клаймсов берем тему
-
-    public String getUsernameFromToken(String token) {
-        return getAllClaimsFromToken(token).getSubject();
-    }
-
-    //выдергиваем роли. из клеймсов выдираем лис по ключу "роли"
-    public List<String> getRoles(String token) {
-        return getAllClaimsFromToken(token).get("roles", List.class);
-    }
-
-
-    //выдергиваем из токена клеймсы(полезную инфу)
-    private Claims getAllClaimsFromToken(String token) {
-        //создаем парсер, указываем ключ, сам токен. проверяется время жизни токена и подпись
-        return Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
-    }
+//исключаем разбор токена. этим занимается шлюз
+//    /*     разбор токена*/
+//
+////выдергиваем имя юзера , оно же  тема токена.  из клаймсов берем тему
+//
+//    public String getUsernameFromToken(String token) {
+//        return getAllClaimsFromToken(token).getSubject();
+//    }
+//
+//    //выдергиваем роли. из клеймсов выдираем лис по ключу "роли"
+//    public List<String> getRoles(String token) {
+//        return getAllClaimsFromToken(token).get("roles", List.class);
+//    }
+//
+//
+//    //выдергиваем из токена клеймсы(полезную инфу)
+//    private Claims getAllClaimsFromToken(String token) {
+//        //создаем парсер, указываем ключ, сам токен. проверяется время жизни токена и подпись
+//        return Jwts.parser()
+//                .setSigningKey(secret)
+//                .parseClaimsJws(token)
+//                .getBody();
+//    }
 }

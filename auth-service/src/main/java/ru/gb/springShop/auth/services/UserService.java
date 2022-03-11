@@ -1,4 +1,4 @@
-package ru.gb.springShop.core.services;
+package ru.gb.springShop.auth.services;
 
 
 import lombok.RequiredArgsConstructor;
@@ -9,9 +9,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.gb.springShop.core.entities.Role;
-import ru.gb.springShop.core.entities.User;
-import ru.gb.springShop.core.repositories.UserRepository;
+import ru.gb.springShop.auth.entities.Role;
+import ru.gb.springShop.auth.entities.User;
+import ru.gb.springShop.auth.repositories.UserRepository;
+
 
 import java.util.Collection;
 import java.util.Optional;
