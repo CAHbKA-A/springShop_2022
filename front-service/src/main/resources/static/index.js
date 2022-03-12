@@ -187,7 +187,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 //вызываем корзину
         $scope.loadCart();
 // //список заказов
- //     $scope.loadOrders();
+   $scope.loadOrders();
 
         console.log('end');
     }
