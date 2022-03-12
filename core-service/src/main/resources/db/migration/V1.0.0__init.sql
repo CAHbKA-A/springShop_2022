@@ -2,7 +2,7 @@ create table products
 (
     id          bigserial primary key,
     title       varchar(255),
-    price       int,
+    price       DECIMAL,
     description varchar(255),
     created_at  timestamp default current_timestamp,
     updated_at  timestamp default current_timestamp
@@ -11,10 +11,10 @@ create table products
 
 -- продукты
 insert into products (title, price, description)
-values ('Product1', 1, 'описалово'),
-       ('Product2', 10, 'blahblahblah'),
-       ('Product3', 8345, 'описалово'),
-       ('Product4', 650, ',блаблабла');
+values ('Product1', 1.76, 'описалово'),
+       ('Product2', 10.54, 'blahblahblah'),
+       ('Product3', 834.5, 'описалово'),
+       ('Product4', 65.0, ',блаблабла');
 
 
 
@@ -42,4 +42,5 @@ create table order_items
     created_at        timestamp default current_timestamp,
     updated_at        timestamp default current_timestamp
 );
+
 

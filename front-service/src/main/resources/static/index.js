@@ -8,8 +8,10 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
        //функция авторизации (нажали кнопку войти
         $scope.tryToAuth = function () {
+            console.log($scope.user);
             $http.post('http://localhost:5555/auth/auth', $scope.user) //адрес аутентификации. отправляем объект user.
                 .then(function successCallback(response) { //если  авторизация прошла успешно (с бэка пришел ответ положительный)
+
                     if (response.data.token) { //выдергиваем из ответа токен.если получили токен
                         $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;//добавляем в дефолтный херед. чтобы браузер всегда отправлял токен
                         //кладем в локальное хранилище браузера, чтобы не терять при передапуске браузера или обновлении страницы.
@@ -29,14 +31,15 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             $scope.user = null;
         };
 
-        $scope.clearUser = function () { //вычиoаем пользователя из браузера
+        $scope.clearUser = function () { //вычищаем пользователя из браузера
             delete $localStorage.ownUser; //удаялем локальню переменую  из хронилища браузера
-            $http.defaults.headers.common.Authorization = '';//очищаем заоголовок (уалем токен)
+            $http.defaults.headers.common.Authorization = '';//очищаем заоголовок (удаляем токен)
         };
 
 
         //функционал проверки статуса юзера (залогинен или нет). проверяем по наличию перемнной в локальнмо хранилище браузера
         $scope.isUserLoggedIn = function () {
+
             if ($localStorage.ownUser) {
                 return true;
             } else {
@@ -44,12 +47,12 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             }
         };
 
-        // //функционал запроса своего логина (проверка авторизации)
-        // $scope.authCheck = function () {
-        //     $http.get('http://localhost:5555/core/auth_check').then(function (response) {
-        //         alert(response.data.value); //высплывающее окно с полученой строкой
-        //     });
-        // };
+        //функционал запроса своего логина (проверка авторизации)
+        $scope.authCheck = function () {
+            $http.get('http://localhost:5555/core/auth_check').then(function (response) {
+                alert(response.data.value); //высплывающее окно с полученой строкой
+            });
+        };
 
 
         $scope.loadProducts = function () {
@@ -75,6 +78,12 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             });
         }
 
+
+        $scope.filter = function () {
+               $http.post('http://localhost:5555/core/api/v1/products/filter').then(function (response) {
+                $scope.loadProducts();
+            });
+        }
 
         $scope.loadCart = function () {
             $http.get('http://localhost:5555/cart/api/v1/cart').then(function (response) {
@@ -117,6 +126,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
                 $scope.loadCart();
             });
         }
+
 
 
 

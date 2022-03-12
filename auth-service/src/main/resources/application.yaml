@@ -8,6 +8,7 @@ spring:
     driver-class-name: org.h2.Driver
 #new database for user
     url: jdbc:h2:file:./users;MODE=PostgreSQL
+#    url: jdbc:h2:mem:users;MODE=PostgreSQL
     username: sa
     password:
   jpa:
@@ -27,5 +28,3 @@ jwt:
   secret: 54y5hy67ik9##%Y%h589o8kuhgh45u67jngyj7t7jfhg#$
   lifetime: 98000000
 
-integration:
-  urlCart: "http://localhost:8181/shop-carts/api/v1/cart"

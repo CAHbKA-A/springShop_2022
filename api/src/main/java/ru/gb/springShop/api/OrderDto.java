@@ -2,13 +2,14 @@ package ru.gb.springShop.api;
 
 
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
 public class OrderDto {
     private Long id;
     private String username;
-    private int totalPrice;
+    private BigDecimal totalPrice;
     private LocalDateTime createdAt;
  //   private List<OrderItemDto> orderItems;
 
@@ -28,11 +29,11 @@ public class OrderDto {
         this.username = username;
     }
 
-    public int getTotalPrice() {
+    public BigDecimal  getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(int totalPrice) {
+    public void setTotalPrice(BigDecimal  totalPrice) {
         this.totalPrice = totalPrice;
     }
 

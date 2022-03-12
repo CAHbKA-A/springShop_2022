@@ -1,18 +1,20 @@
 package ru.gb.springShop.core.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.api.ProductDto;
 import ru.gb.springShop.api.ResourceNotFoundException;
 import ru.gb.springShop.core.convertors.ProductConverter;
+import ru.gb.springShop.core.entities.FilterData;
 import ru.gb.springShop.core.entities.Product;
-
 import ru.gb.springShop.core.services.ProductService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
@@ -20,7 +22,7 @@ import java.util.stream.Collectors;
 public class ProductController {
     //Подключаем сервисы (финал -в обяз)
     private final ProductService productService;
-       private final ProductConverter productConverter;
+    private final ProductConverter productConverter;
 
     //вытягивание всего списка
     @GetMapping
@@ -29,8 +31,6 @@ public class ProductController {
         return productService.findAll().stream().map(p -> new ProductDto(p.getId(), p.getTitle(), p.getPrice())).collect(Collectors.toList());
 
     }
-
-
 
 
     @GetMapping("/{id}")
@@ -47,5 +47,11 @@ public class ProductController {
         productService.deleteById(id);
     }
 
+
+    @PostMapping("/filter")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void filter( @RequestHeader String username, @RequestBody FilterData filterData ) {
+    log.info(username+" "+filterData.getMinPrice()+filterData.getMaxPrice()+filterData.getTextSearch());
+    }
 
 }
