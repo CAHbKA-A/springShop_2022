@@ -8,6 +8,7 @@ import ru.gb.springShop.api.OrderDto;
 import ru.gb.springShop.api.ResourceNotFoundException;
 import ru.gb.springShop.core.convertors.OrderConvertor;
 import ru.gb.springShop.core.entities.Order;
+import ru.gb.springShop.core.entities.OrderData;
 import ru.gb.springShop.core.services.OrderService;
 import java.util.List;
 
@@ -25,8 +26,8 @@ public class OrderController {
     //если прилетел post,создаем заказ
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOrder(@RequestHeader String username /*, @RequestBody OrderData orderData */) {
-        orderService.createOrder(username);
+    public void createOrder(@RequestHeader String username , @RequestBody OrderData orderData ) {
+        orderService.createOrder(username, orderData);
     }
 
     @GetMapping("/{id}")

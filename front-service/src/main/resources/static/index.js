@@ -3,12 +3,12 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         //включаем функции $scope -для переменных, $http-для обработки хтмл, $localStorage - для локального хранения
         console.log('start');
 
- /* Функции*/
+        /* Функции*/
 
 
-       //функция авторизации (нажали кнопку войти
+        //функция авторизации (нажали кнопку войти
         $scope.tryToAuth = function () {
-            console.log($scope.user);
+            // console.log($scope.user);
             $http.post('http://localhost:5555/auth/auth', $scope.user) //адрес аутентификации. отправляем объект user.
                 .then(function successCallback(response) { //если  авторизация прошла успешно (с бэка пришел ответ положительный)
 
@@ -57,7 +57,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
         $scope.loadProducts = function () {
             $http.get('http://localhost:5555/core/api/v1/products').then(function (response) {
-               // console.log(response.data);
+                // console.log(response.data);
                 $scope.productsList = response.data;
             });
         }
@@ -78,12 +78,6 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             });
         }
 
-
-        $scope.filter = function () {
-               $http.post('http://localhost:5555/core/api/v1/products/filter').then(function (response) {
-                $scope.loadProducts();
-            });
-        }
 
         $scope.loadCart = function () {
             $http.get('http://localhost:5555/cart/api/v1/cart').then(function (response) {
@@ -120,32 +114,28 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             });
         }
 
+        $scope.filter = function () {
+            console.log("filter");
+            $http.post('http://localhost:5555/core/api/v1/products/filter', $scope.filterData).then(function (response) {
+                $scope.productsList = response.data;
 
-        $scope.createOrder = function () {
-            $http.post('http://localhost:5555/core/api/v1/orders').then(function (response) {
-                $scope.loadCart();
             });
         }
-
-
-
 
 
         //todo сохранение в локальное хранилище браузера телефона и адреса. или подтягивать из бд
         $scope.createOrder = function () {
 
-            $http.post('http://localhost:5555/core/api/v1/orders', $scope.user)
-                .then(function successCallback(response) { //HttpStatus.CREATED)
+            $http.post('http://localhost:5555/core/api/v1/orders', $scope.user).then(function successCallback(response) { //HttpStatus.CREATED)
                 //reload или перейти  на страницу заказов
-                    $scope.loadCart();
-                    $scope.loadOrders();
+                $scope.loadCart();
+                $scope.loadOrders();
 
-                }, function errorCallback(response) {
-                    alert("error. или не ввели адрес телефон или косяк на бэке. пока не разделяю")
-                });
+            }, function errorCallback(response) {
+                alert("error. или не ввели адрес телефон или косяк на бэке. пока не разделяю")
+            });
 
         };
-
 
 
         /*действия при подключении JS*/
@@ -169,17 +159,12 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         }
 
 
-
-
         $scope.loadOrders = function () {
             $http.get('http://localhost:5555/core/api/v1/orders').then(function (response) {
-             //   console.log(response.data);
+                //   console.log(response.data);
                 $scope.orderList = response.data;
             });
         }
-
-
-
 
 
 //вызываем список продуктов
@@ -187,7 +172,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 //вызываем корзину
         $scope.loadCart();
 // //список заказов
-   $scope.loadOrders();
+        $scope.loadOrders();
 
         console.log('end');
     }

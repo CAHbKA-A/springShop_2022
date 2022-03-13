@@ -62,11 +62,11 @@
     <form class="align-middle" ng-submit="filter()">
         <td>
             <div class="input-group input-group-sm" style="padding: 4px;">
-                <input id="minPrice" class="form-control" ng-model="filter.minPrice" type="text"
+                <input id="filterMinPrice" class="form-control" ng-model="filterData.minPrice" type="text"
                        style="margin-right: 10px;" placeholder="minprice">
-                <input id="maxPrice" class="form-control" ng-model="filter.maxPrice" type="text"
+                <input id="filterMaxPrice" class="form-control" ng-model="filterData.maxPrice" type="text"
                        style="margin-right: 10px;" placeholder="maxPrice">
-                <input id="textSearch" class="form-control" ng-model="filter.textSearch" type="text"
+                <input id="filterTextSearch" class="form-control" ng-model="filterData.textSearch" type="text"
                        style="margin-right: 10px;" placeholder="textSearch">
                 <button type="button" class="btn btn-success" ng-click="filter()" type="submit">Фильтр </button>
             </div>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.gb.springShop.api.CartDto;
 import ru.gb.springShop.core.entities.Order;
+import ru.gb.springShop.core.entities.OrderData;
 import ru.gb.springShop.core.entities.OrderItem;
 import ru.gb.springShop.core.intergrations.CartServiceIntegration;
 import ru.gb.springShop.core.repositories.OrderRepository;
@@ -37,10 +38,12 @@ public class OrderService {
 
 
     @Transactional
-    public void createOrder(String username) {
+    public void createOrder(String username, OrderData orderData) {
         CartDto cartDto = cartServiceIntegration.getCurrentCart();
         Order order = new Order();
         order.setUsername(username);
+        order.setAddress(orderData.getAddress());
+        order.setPhone(orderData.getPhone());
         order.setTotalPrice(cartDto.getTotalPrice());
         order.setItems(cartDto.getItems().stream().map(
                 cartItem -> new OrderItem(

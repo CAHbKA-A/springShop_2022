@@ -11,6 +11,7 @@ import ru.gb.springShop.core.entities.FilterData;
 import ru.gb.springShop.core.entities.Product;
 import ru.gb.springShop.core.services.ProductService;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,8 +51,12 @@ public class ProductController {
 
     @PostMapping("/filter")
     @ResponseStatus(HttpStatus.CREATED)
-    public void filter( @RequestHeader String username, @RequestBody FilterData filterData ) {
-    log.info(username+" "+filterData.getMinPrice()+filterData.getMaxPrice()+filterData.getTextSearch());
+    public  List<ProductDto>  filter(@RequestBody FilterData filterData) {
+
+        //log.info(" "+filterData.getMinPrice()+filterData.getMaxPrice()+filterData.getTextSearch());
+        return productService.findByFilter(filterData).stream().map(p -> new ProductDto(p.getId(), p.getTitle(), p.getPrice())).collect(Collectors.toList());
+
     }
+
 
 }

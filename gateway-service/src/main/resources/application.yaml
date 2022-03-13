@@ -29,7 +29,7 @@ spring:
             #delete 1 level of urlSring(CORE/)
             - StripPrefix=1
             - PrefixPath=/shop-core
-            - JwtAuthFilter #подправить токен. смтреть class JwtAuthFilter
+            - JwtAuthFilter #подправить токен. смтореть class JwtAuthFilter
 
         - id: cart-service
           uri: http://localhost:8181
