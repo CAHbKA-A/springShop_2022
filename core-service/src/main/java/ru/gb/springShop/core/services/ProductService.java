@@ -41,18 +41,20 @@ public class ProductService {
 
     }
 
-
+    //todo ignoreCase
     public List<Product> findByFilter(FilterData filterData) {
-log.info(filterData.getMinPrice()+" " +filterData.getMaxPrice());
+
+        BigDecimal minPrice = filterData.getMinPrice();
+        BigDecimal maxPrice = filterData.getMaxPrice();
+        String textForSearch = filterData.getTextSearch();
+        if (minPrice == null) minPrice = BigDecimal.ZERO;
+        if (maxPrice == null ) maxPrice = BigDecimal.ZERO;
+        if (textForSearch == null) textForSearch = "~*";
+        if (maxPrice.equals(BigDecimal.ZERO))
+            return productRepository.findAllByPriceGreaterThanEqualAndTitleContains(minPrice, textForSearch);
 
 
-        if (filterData.getMinPrice()==null){
-            filterData.setMinPrice(new BigDecimal(0));
-        }
-
-
-
-        return productRepository.findProductsByPriceBetween (filterData.getMinPrice(),filterData.getMaxPrice());
+        return productRepository.findAllByPriceGreaterThanEqualAndPriceLessThanEqualAndTitleContains(minPrice, maxPrice, textForSearch);
 
 
     }
