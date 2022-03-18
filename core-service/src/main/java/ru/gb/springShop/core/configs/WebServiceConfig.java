@@ -34,7 +34,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("ProductsPort");
         wsdl11Definition.setLocationUri("/soap");
-        wsdl11Definition.setTargetNamespace("http://www.flamexander.com/spring/soap/products");
+        wsdl11Definition.setTargetNamespace("http://www.gb.ru/springShop/soap/products");
         wsdl11Definition.setSchema(productsSchema);
         log.info("!!!!WebServiceConfig!!!!");
         return wsdl11Definition;

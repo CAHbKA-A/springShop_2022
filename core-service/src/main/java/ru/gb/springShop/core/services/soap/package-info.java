@@ -5,5 +5,5 @@
 // Generated on: 2022.03.02 at 11:25:21 PM IRKT 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.flamexander.com/spring/shop/products", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package ru.gb.springShop.core.soap.products;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.gb.ru/springShop/shop-core/products", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package ru.gb.springShop.core.services.soap;
