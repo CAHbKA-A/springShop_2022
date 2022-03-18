@@ -1,0 +1,30 @@
+server:
+  port: 8188
+  servlet:
+    context-path: /shop-auth
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+#new database for user
+    url: jdbc:h2:file:./users;MODE=PostgreSQL
+#    url: jdbc:h2:mem:users;MODE=PostgreSQL
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        #for correct create querys by our action
+        dialect: org.hibernate.dialect.H2Dialect
+  #web console fo h2 DB
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: false
+jwt:
+  #  key for coding and checking token
+  secret: 54y5hy67ik9##%Y%h589o8kuhgh45u67jngyj7t7jfhg#$
+  lifetime: 98000000
+

@@ -7,6 +7,10 @@
         <module>core-service</module>
          <module>cart-service</module>
         <module>api</module>
+        <module>front-service</module>
+        <module>gateway-service</module>
+        <module>auth-service</module>
+
     </modules>
 
     <groupId>ru.gb</groupId>
@@ -14,8 +18,5 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>springShop</name>
     <description>web shop (Angular JS)</description>
-    <properties>
-        <java.version>11</java.version>
-    </properties>
 
 </project>

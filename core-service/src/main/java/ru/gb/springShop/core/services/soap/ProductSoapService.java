@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.gb.springShop.core.entities.Product;
 import ru.gb.springShop.core.repositories.soap.ProductSOAPRepository;
-import ru.gb.springShop.core.soap.products.ProductSOAP;
+
 
 import java.util.List;
 import java.util.function.Function;
@@ -27,7 +27,7 @@ public class ProductSoapService {
     };
 
     public List<ProductSOAP> getAllProducts() {
-        log.info("!!!ProductSoapService!!!");
+        log.info("!!!ProductSoapService!!!getAllProducts");
         return productSOAPRepository.findAll().stream().map(functionEntityToSoap).collect(Collectors.toList());
     }
 

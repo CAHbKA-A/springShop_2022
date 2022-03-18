@@ -12,7 +12,6 @@ import ru.gb.springShop.carts.services.CartService;
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
-@CrossOrigin("*") // временный обход секьюрити
 //@CrossOrigin("http://localhost:8080") //разрешить запросы только с порта 8080
 public class CartController {
     private final CartService cartService;
@@ -38,8 +37,7 @@ public class CartController {
         cartService.setCountItemInCart(id, count);
     }
 
-    @DeleteMapping("/clear")
-    @ResponseBody
+    @GetMapping("/clear")
     public void clearCart() {
         cartService.clear();
     }

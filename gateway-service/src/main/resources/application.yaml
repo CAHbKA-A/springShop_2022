@@ -1,0 +1,63 @@
+server:
+  port: 5555
+
+spring:
+  application:
+    name: gateway-service
+  #      nastroyka cloudGateway
+  cloud:
+    gateway:
+      #      corsPolicy/ s kakih endpointov gotovi prinimat zaprosy/ kakie metoy /hedery
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+            allowedHeaders: "*"
+      #            narshuty
+      #http://localhost:5555/core/api/v1/product  -> http://localhost:8186/web-marcket-core/api/v1/product
+      #      kakoy zapros kuda peprekinut i chto dopisat v put
+      routes:
+
+        - id: core-service
+          uri: http://localhost:8189
+          predicates:
+            - Path=/core/**
+          filters:
+            #delete 1 level of urlSring(CORE/)
+            - StripPrefix=1
+            - PrefixPath=/shop-core
+            - JwtAuthFilter #подправить токен. смтореть class JwtAuthFilter
+
+        - id: cart-service
+          uri: http://localhost:8181
+          predicates:
+            - Path=/cart/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/shop-carts
+            - JwtAuthFilter
+
+        - id: auth-service
+          uri: http://localhost:8188
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/shop-auth
+            - JwtAuthFilter
+
+
+jwt:
+  secret: 54y5hy67ik9##%Y%h589o8kuhgh45u67jngyj7t7jfhg#$
+
+#logging:
+#  level:
+#    reactor:
+#      netty: TRACE
+#    org:
+#      springframework:
+#        cloud:
+#          gateway: TRACE

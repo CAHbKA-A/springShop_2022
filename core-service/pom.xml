@@ -26,6 +26,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+
         <!--		для soap-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -53,12 +55,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <!--для xml-->
         <dependency>
@@ -85,6 +82,8 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
+
     </dependencies>
 
     <build>
