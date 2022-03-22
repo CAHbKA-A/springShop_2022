@@ -1,6 +1,7 @@
 package ru.gb.springShop.core.test;
 /*полный запуск сервиса на рандомном порту. выгружаем json , проверяем, что не пустой и не null
-Проверка что он вообще поднялся и принимает запросы, выдает данные*/
+Проверка что он вообще поднялся и принимает запросы, выдает данные
+Можем затестить все url и меторды контроллера*/
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
