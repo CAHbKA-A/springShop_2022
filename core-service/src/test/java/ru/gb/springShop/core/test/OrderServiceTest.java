@@ -1,8 +1,9 @@
 package ru.gb.springShop.core.test;
-
+/*тест одного сервиса с заглушками на соседях*/
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,12 +19,11 @@ import ru.gb.springShop.core.services.OrderService;
 import ru.gb.springShop.core.services.ProductService;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@SpringBootTest
+@SpringBootTest //(classes =  OrderService.class)
 public class OrderServiceTest {
     @Autowired //инжектим это сервис
     private OrderService orderService;
@@ -51,7 +51,7 @@ public class OrderServiceTest {
         cartItemDto.setProductId(12222L);
         cartDto.setItems(List.of(cartItemDto));
         cartDto.setTotalPrice(BigDecimal.valueOf(200));
-        log.info("!"+cartDto.getTotalPrice());
+        log.info("!" + cartDto.getTotalPrice());
         //создаем загрушку для cartServiceIntegration/ подмена возвращаемого значения/ при вызове cartServiceIntegration.getCurrentCart() возвращается cartDto
         Mockito.doReturn(cartDto).when(cartServiceIntegration).getCurrentCart();
 
@@ -63,8 +63,12 @@ public class OrderServiceTest {
         //подменяем
         Mockito.doReturn(Optional.of(product)).when(productService).findById(12222L);
 
+        //сама проверка
         Order order = orderService.createOrder("bob", new OrderData("5443", "23432"));
 
         Assertions.assertEquals(order.getTotalPrice(), BigDecimal.valueOf(200));
+
+        //можно проверить сколько раз был вызван метод. например save у ордеррипозитория 1 раз   с  любым аргументом
+        Mockito.verify(orderRepository, Mockito.times(1)).save(ArgumentMatchers.any());
     }
 }
