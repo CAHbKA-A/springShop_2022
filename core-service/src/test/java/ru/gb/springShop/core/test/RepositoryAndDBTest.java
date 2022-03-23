@@ -1,7 +1,9 @@
 package ru.gb.springShop.core.test;
 
 /*тестим репозиторий+ аботу с БД.  все тесты выполняются в транзакции, после теста записи в БД откатываются!*/
-/*в идеале делать на тестовой бд h2, азверну в пмяти на время тестов*/
+/*в идеале делать на тестовой бд h2, азверну в памяти на время тестов:
+в application-test.yaml описываем новую бд+путь к файлу мигрции, и flyFay'ем заполняем
+*/
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +18,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @DataJpaTest
-@ActiveProfiles("test")
+@ActiveProfiles("forTest") //профиль для flyway  брать в application-forTest.yaml. бд на время теста
 public class RepositoryAndDBTest {
     @Autowired
     private ProductRepository productRepository;
