@@ -38,13 +38,15 @@ public class OrderService {
 
 
     @Transactional
-    public void createOrder(String username, OrderData orderData) {
+    public Order createOrder(String username, OrderData orderData) {
         CartDto cartDto = cartServiceIntegration.getCurrentCart();
+
         Order order = new Order();
         order.setUsername(username);
         order.setAddress(orderData.getAddress());
         order.setPhone(orderData.getPhone());
         order.setTotalPrice(cartDto.getTotalPrice());
+
         order.setItems(cartDto.getItems().stream().map(
                 cartItem -> new OrderItem(
                         productService.findById(cartItem.getProductId()).get(),
@@ -56,5 +58,7 @@ public class OrderService {
         ).collect(Collectors.toList()));
         orderRepository.save(order);
         cartServiceIntegration.clear();
+
+        return order;
     }
 }
