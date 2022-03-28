@@ -2,6 +2,7 @@ package ru.gb.springShop.core.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.api.ProductDto;
@@ -27,10 +28,19 @@ public class ProductController {
 
     //вытягивание всего списка
     @GetMapping
-    public List<ProductDto> findAllProducts() {
-        //собираем и преобразуем в dto
-        return productService.findAll().stream().map(p -> new ProductDto(p.getId(), p.getTitle(), p.getPrice())).collect(Collectors.toList());
+    public List<ProductDto> findProducts(
+            @RequestParam(required = false, name = "min_price") Integer minPrice,
+            @RequestParam(required = false, name = "max_price") Integer maxPrice,
+            @RequestParam(required = false, name = "title") String title,
+            @RequestParam(defaultValue = "1", name = "p") Integer page
+    ) {
+        if (page < 1) {
+            page = 1;
+        }
 
+        Specification<Product> spec = productService.createSpecByFilters(minPrice, maxPrice, title);
+        //получаем с  страницы н-1( с нуля), и мапим из пейджа в дто и преобразуем в лист
+        return productService.findAll(spec, page - 1).map(productConverter::entityToDto).getContent();
     }
 
 
@@ -49,14 +59,14 @@ public class ProductController {
     }
 
 
-    @PostMapping("/filter")
-    @ResponseStatus(HttpStatus.CREATED)
-    public  List<ProductDto>  filter(@RequestBody FilterData filterData) {
-
-        //log.info(" "+filterData.getMinPrice()+filterData.getMaxPrice()+filterData.getTextSearch());
-        return productService.findByFilter(filterData).stream().map(p -> new ProductDto(p.getId(), p.getTitle(), p.getPrice())).collect(Collectors.toList());
-
-    }
+//    @PostMapping("/filter")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public  List<ProductDto>  filter(@RequestBody FilterData filterData) {
+//
+//        //log.info(" "+filterData.getMinPrice()+filterData.getMaxPrice()+filterData.getTextSearch());
+//        return productService.findByFilter(filterData).stream().map(p -> new ProductDto(p.getId(), p.getTitle(), p.getPrice())).collect(Collectors.toList());
+//
+//    }
 
 
 }
