@@ -1,0 +1,58 @@
+<div>
+    <p></p>
+    <h3>Карзина</h3>
+    <p></p>
+
+
+    <button type="button" class="btn btn-warning" ng-click="clearCart()">Вывалить корзину на пол и забыть</button>
+
+    <table class="table table-hover">
+        <tr>
+            <td>Название</td>
+            <td>Количество</td>
+            <td>Цена</td>
+            <td></td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="item in cart.items">
+            <td>{{item.productTitle}}</td>
+            <td>{{item.quantity}}
+                <!--                можно будетдобавить поле с вводом цифры и можно будет использовать эту же ф-ию-->
+                <button type="button" class="btn btn-secondary" ng-click="setCountItem(item.productId,item.quantity-1)">
+                    -
+                </button>
+                <button type="button" class="btn btn-secondary" ng-click="setCountItem(item.productId,item.quantity+1)">
+                    +
+                </button>
+            </td>
+            <td>{{item.pricePerProduct + ' $ x ' + item.quantity + ' = ' + item.price}} $</td>
+            <td>
+                <button type="button" class="btn btn-danger" ng-click="deleteItemFromCart(item.productId)">Удалить
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>С вас:</td>
+            <td>{{cart.totalPrice}} $</td>
+        </tr>
+        <tr>
+            <form class="align-middle" ng-submit="createOrder()">
+                <td>
+                    <div class="input-group input-group-sm" style="padding: 4px;">
+                        <input id="userAddres" class="form-control" ng-model="user.address" type="text"
+                               style="margin-right: 10px;" placeholder="664035 NY City/ Обязательно!!">
+                        <input id="userPhone" class="form-control" ng-model="user.phone" type="text"
+                               style="margin-right: 10px;" placeholder="+7914918111/ Обязательно!!">
+                        <button type="button" class="btn btn-success" ng-click="createOrder()" type="submit">Оформить
+                            заказ
+                        </button>
+                    </div>
+                </td>
+            </form>
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
