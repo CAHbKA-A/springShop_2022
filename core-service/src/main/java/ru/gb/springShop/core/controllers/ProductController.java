@@ -3,18 +3,14 @@ package ru.gb.springShop.core.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.api.ProductDto;
 import ru.gb.springShop.api.ResourceNotFoundException;
 import ru.gb.springShop.core.convertors.ProductConverter;
-import ru.gb.springShop.core.entities.FilterData;
 import ru.gb.springShop.core.entities.Product;
 import ru.gb.springShop.core.services.ProductService;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -33,7 +29,8 @@ public class ProductController {
             @RequestParam(required = false, name = "max_price") Integer maxPrice,
             @RequestParam(required = false, name = "title") String title,
             @RequestParam(defaultValue = "1", name = "p") Integer page
-    ) {
+    )
+    {
         if (page < 1) {
             page = 1;
         }

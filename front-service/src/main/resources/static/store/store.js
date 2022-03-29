@@ -3,7 +3,6 @@ angular.module('market').controller('storeController', function ($scope, $http, 
     const cartContextPath = 'http://localhost:5555/cart/';
 
 
-
     $scope.showProductInfo = function (productId) {
         $http.get(contextPath + 'api/v1/products/' + productId).then(function (response) {
             alert(response.data.description);
@@ -18,30 +17,38 @@ angular.module('market').controller('storeController', function ($scope, $http, 
     }
 
 
-    $scope.loadProducts = function () {
-        $http.get(contextPath + 'api/v1/products').then(function (response) {
-              $scope.productsList = response.data;
+    $scope.loadProducts = function (minPrice, maxPrice, textSearch) {
+        $http.get(contextPath + 'api/v1/products',
+            {
+                params: {
+                    min_price: minPrice,
+                    max_price: maxPrice,
+                    title: textSearch
+                }
+            }
+        ).then(function (response) {
+
+            $scope.productsList = response.data;
         });
     }
-
 
 
     $scope.deleteProductById = function (id) {
         $http.delete(contextPath + 'api/v1/products' + id).then(function (response) {
-             $scope.loadProducts();
+            $scope.loadProducts();
         });
     }
 
 
-
-    $scope.filter = function () {
-        console.log("filter");
-        $http.post(contextPath + 'api/v1/products/filter', $scope.filterData).then(function (response) {
-            $scope.productsList = response.data;
-
-        });
-    }
+    // $scope.filter = function () {
+    //     console.log("filter");
+    //     $http.post(contextPath + 'api/v1/products/filter', $scope.filterData).then(function (response) {
+    //         $scope.productsList = response.data;
+    //
+    //     });
+    // }
 
 
     $scope.loadProducts();
-});
+})
+;
