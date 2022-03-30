@@ -32,7 +32,7 @@
 
     function run($rootScope, $http, $localStorage) {
         //при загрузе страницы проверяем, есть ли данные о юзере в локальном хранилище и не просрочен ли токен/
-        if ($localStorage.winterMarketUser) {
+        if ($localStorage.ownUser) {
             try {
                 let jwt = $localStorage.ownUser.token; //выдернули токен
                 let payload = JSON.parse(atob(jwt.split('.')[1])); //разбили на состовляющие
@@ -46,7 +46,7 @@
             } catch (e) {
             }
 
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.winterMarketUser.token; //если токен актуален, вставляем в хедер
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.ownUser.token; //если токен актуален, вставляем в хедер
         }
         console.log('end');
     }

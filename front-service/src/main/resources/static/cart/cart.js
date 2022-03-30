@@ -33,18 +33,18 @@ angular.module('market').controller('cartController', function ($scope, $http, $
 
 
         }, function errorCallback(response) {
-            alert("error. или не ввели адрес телефон или косяк на бэке. пока не разделяю")
+            alert("error. не ввели адрес телефон или косяк на бэке")
         });
 
     };
 
     $scope.setCountItem = function (productId, count) {
         $http.get(contextPath + 'api/v1/cart/SetCountItem?id=' + productId + '&count=' + count).then(function (response) {
-            $scope.loadCart();
+            $scope.loadCart($scope.user);
         });
     }
 
 
 
-    $scope.loadCart();
+    $scope.loadCart($scope.user);
 });
