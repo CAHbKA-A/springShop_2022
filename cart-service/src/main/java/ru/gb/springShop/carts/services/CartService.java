@@ -19,6 +19,7 @@ public class CartService {
     @PostConstruct
     public void init() {
         tempCart = new Cart();
+       // tempCart.setUser();
     }
 
     public Cart getCurrentCart() {

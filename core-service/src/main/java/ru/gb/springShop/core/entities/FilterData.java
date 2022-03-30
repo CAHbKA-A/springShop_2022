@@ -14,4 +14,5 @@ public class FilterData {
     private BigDecimal minPrice;
     private BigDecimal maxPrice;
     private String textSearch;
+    private int page;
 }

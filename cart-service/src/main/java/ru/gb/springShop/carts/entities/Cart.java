@@ -14,10 +14,15 @@ import java.util.List;
 public class Cart {
     private List<CartItem> items;
     private BigDecimal totalPrice;
+    private String user;
 
     public Cart() {
         this.items = new ArrayList<>();
     }
+//    public Cart(String user) {
+//        this.items = new ArrayList<>();
+//        this.user = user;
+//    }
 
     //Возврщает содержимое корзины, не на дает ее изменять(unmodifiableList).
     public List<CartItem> getItems() {
@@ -61,7 +66,7 @@ public class Cart {
     private void recalculate() {
         totalPrice = BigDecimal.ZERO;
         for (CartItem item : items) {
-            totalPrice = totalPrice .add(item.getPrice());
+            totalPrice = totalPrice.add(item.getPrice());
         }
 
     }

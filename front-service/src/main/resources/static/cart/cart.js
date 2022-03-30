@@ -5,6 +5,7 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     $scope.loadCart = function () {
         $http.get(contextPath + 'api/v1/cart').then(function (response) {
             $scope.cart = response.data;
+            console.log($scope.user)
         });
     }
 
@@ -27,7 +28,7 @@ angular.module('market').controller('cartController', function ($scope, $http, $
 
         $http.post(coreContextPath+'api/v1/orders', $scope.user).then(function successCallback(response) { //HttpStatus.CREATED)
             //reload или перейти  на страницу заказов
-            console.log()
+
             $scope.loadCart($scope.user);
 
 

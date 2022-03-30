@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.api.ProductDto;
 import ru.gb.springShop.api.ResourceNotFoundException;
 import ru.gb.springShop.core.convertors.ProductConverter;
+import ru.gb.springShop.core.entities.FilterData;
 import ru.gb.springShop.core.entities.Product;
 import ru.gb.springShop.core.services.ProductService;
 
@@ -21,6 +22,7 @@ public class ProductController {
     //Подключаем сервисы (финал -в обяз)
     private final ProductService productService;
     private final ProductConverter productConverter;
+    //private int currentPage;
 
     //вытягивание всего списка
     @GetMapping
@@ -30,10 +32,11 @@ public class ProductController {
             @RequestParam(required = false, name = "title") String title,
             @RequestParam(defaultValue = "1", name = "p") Integer page
     )
-    {
-        if (page < 1) {
-            page = 1;
-        }
+
+    {// currentPage=currentPage+page;
+//        if (page < 1) {
+//            page = 1;
+//        }
 
         Specification<Product> spec = productService.createSpecByFilters(minPrice, maxPrice, title);
         //получаем с  страницы н-1( с нуля), и мапим из пейджа в дто и преобразуем в лист
@@ -55,7 +58,7 @@ public class ProductController {
         productService.deleteById(id);
     }
 
-
+//
 //    @PostMapping("/filter")
 //    @ResponseStatus(HttpStatus.CREATED)
 //    public  List<ProductDto>  filter(@RequestBody FilterData filterData) {
