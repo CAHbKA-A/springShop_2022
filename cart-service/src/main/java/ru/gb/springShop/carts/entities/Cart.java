@@ -14,20 +14,16 @@ import java.util.List;
 public class Cart {
     private List<CartItem> items;
     private BigDecimal totalPrice;
-    private String user;
+
 
     public Cart() {
         this.items = new ArrayList<>();
     }
-//    public Cart(String user) {
-//        this.items = new ArrayList<>();
-//        this.user = user;
-//    }
+
 
     //Возврщает содержимое корзины, не на дает ее изменять(unmodifiableList).
-    public List<CartItem> getItems() {
-        return Collections.unmodifiableList(items);
-    }
+ //   public List<CartItem> getItems() {        return Collections.unmodifiableList(items);
+ //   }
 
 
     public void add(ProductDto product) {
