@@ -1,0 +1,55 @@
+<div>
+    <p></p>
+    <h3>Каталог товаров</h3>
+    <p></p>
+
+    <h3>Список</h3>
+
+
+        <form class="align-middle" ng-submit="loadProducts()">
+            <td>
+                <div class="input-group input-group-sm" style="padding: 4px;">
+                    <input id="filterMinPrice" class="form-control" ng-model="minPrice" type="text"
+                           style="margin-right: 10px;" placeholder="minprice">
+                    <input id="filterMaxPrice" class="form-control" ng-model="maxPrice" type="text"
+                           style="margin-right: 10px;" placeholder="maxPrice">
+                    <input id="filterTextSearch" class="form-control" ng-model="textSearch" type="text"
+                           style="margin-right: 10px;" placeholder="textSearch">
+                    <button type="button" class="btn btn-success" ng-click="loadProducts(minPrice,maxPrice,textSearch)" type="submit">Фильтр </button>
+                </div>
+            </td>
+        </form>
+
+    <table class="table table-hover">
+        <tr>
+            <td>ID</td>
+            <td>Название</td>
+            <td>Цена</td>
+
+            <td></td>
+        </tr>
+        <tbody>
+
+
+        <tr ng-repeat="p in productsList">
+            <td>{{p.id}}</td>
+            <td>{{p.title}}</td>
+            <td>{{p.price}} $</td>
+            <td>
+                <!--                <button type="button" class="btn btn-info" ng-click="showProductInfo(p.id)">Информация</button>-->
+                <!--                                <button type="button" class="btn btn-danger" ng-click="deleteProductById(p.id)">Удалить</button>-->
+                <button type="button" class="btn btn-success" ng-click="addToCart(p.id)">В корзину</button>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-secondary" ng-click="changePage(-1)">
+        Пред
+    </button>
+    {{currentPage}} стр
+    <button type="button" class="btn btn-secondary" ng-click="changePage(+1)">
+        След
+    </button>
+</div>

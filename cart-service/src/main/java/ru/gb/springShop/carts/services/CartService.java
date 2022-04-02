@@ -1,47 +1,58 @@
 package ru.gb.springShop.carts.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.gb.springShop.api.ProductDto;
-import ru.gb.springShop.api.ResourceNotFoundException;
 import ru.gb.springShop.carts.entities.Cart;
 import ru.gb.springShop.carts.intrgrations.ProductServiceIntegration;
 
-
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
     private final ProductServiceIntegration productServiceIntegration;
-    private Cart tempCart;
+    private Map<String, Cart> allCarts;
+    @Value("${cart-service.cart-prefix}")
+    private String prefixForCarts;
 
     @PostConstruct
     public void init() {
-        tempCart = new Cart();
+        allCarts = new HashMap<>();
+        // tempCart.setUser();
     }
 
-    public Cart getCurrentCart() {
-        return tempCart;
+    public Cart getCurrentCart(String cartIdByUser) {
+        String fullCartId = prefixForCarts+cartIdByUser;
+        if (!allCarts.containsKey(fullCartId)) {
+            allCarts.put(fullCartId, new Cart());
+        }
+        return allCarts.get(fullCartId);
     }
 
-    public void add(Long productId) {
+    public void add(String cartIdByUser,Long productId) {
         ProductDto product = productServiceIntegration.getProductById(productId);
-        tempCart.add(product);
+        getCurrentCart(cartIdByUser).add(product);
+
     }
 
-    public void deleteItemFromCart(Long productId) {
-        tempCart.remove(productId);
+    public void deleteItemFromCart(String cartIdByUser,Long productId) {
+
+        getCurrentCart(cartIdByUser).remove(productId);
     }
 
 
-    public void clear() {
-        tempCart.clear();
+    public void clear(String cartIdByUser) {
+
+        getCurrentCart(cartIdByUser).clear();
     }
 
-    public void setCountItemInCart(Long id, int count) {
+    public void setCountItemInCart(String cartIdByUser, Long id, int count) {
 
-        tempCart.setCount(id, Math.max(count, 0));
+        getCurrentCart(cartIdByUser).setCount(id, Math.max(count, 0));
     }
 
 

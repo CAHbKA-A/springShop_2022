@@ -11,12 +11,21 @@ create table products
 
 -- продукты
 insert into products (title, price, description)
-values ('Product1', 1.76, 'описалово'),
+values ('Product1', 41.76, 'описалово'),
        ('Product2', 10.54, 'blahblahblah'),
        ('Product3', 834.5, 'описалово'),
-       ('Product4', 65.0, ',блаблабла');
+       ('Product4', 65.0, ',блаблабла'),
+       ('Product5', 834.5, 'описалово'),
+       ('Product6', 655.0, ',блаблабла'),
+       ('Product7', 2834.5, 'описалово'),
+       ('Product8', 635.0, ',блаfghблабла'),
+       ('Product9', 8344.5, 'описjалово'),
+       ('Product10', 8534.5, 'описалово'),
+       ('Product11', 65.60, ',блабhfgалово'),
+       ('Product13', 8834.5, 'описаfghлово'),
+       ('Product14', 765.0, ',блабhgлабла'),
 
-
+       ('Product16', 865.0, ',блабfhлабла');
 
 
 
@@ -24,7 +33,7 @@ create table orders
 (
     id          bigserial primary key,
     username    varchar(255) not null,
-    total_price int not null,
+    total_price int          not null,
     address     varchar(255),
     phone       varchar(255),
     created_at  timestamp default current_timestamp,

@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.api.CartDto;
+import ru.gb.springShop.api.StringResponse;
 import ru.gb.springShop.carts.convertes.CartConverter;
 import ru.gb.springShop.carts.services.CartService;
+
+import java.util.UUID;
 
 
 @Slf4j
@@ -17,34 +20,53 @@ public class CartController {
     private final CartService cartService;
     private final CartConverter cartConverter;
 
-    @GetMapping("/add/{id}")
-    public void addToCart(@PathVariable Long id) {
-        cartService.add(id);
+
+    //корзина для неавторизованных
+    @GetMapping("/default_uuid")
+    public StringResponse getrateUuid() {
+        return new StringResponse(UUID.randomUUID().toString());
+    }
+
+    @GetMapping("/{uuid}/add/{id}")
+    public void addToCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid, @PathVariable Long id) {
+        uuid = getCartUuid(username, uuid);
+        cartService.add(uuid, id);
     }
 
 
-    @GetMapping("/deleteItem/{id}")
-    public void deleteItemFromCart(@PathVariable Long id) {
-        cartService.deleteItemFromCart(id);
+    @GetMapping("/{uuid}/deleteItem/{id}")
+    public void deleteItemFromCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid, @PathVariable Long id) {
+        uuid = getCartUuid(username, uuid);
+        cartService.deleteItemFromCart(uuid, id);
     }
 
 
-    @GetMapping("/SetCountItem")
+    @GetMapping("/{uuid}/SetCountItem")
     @ResponseBody
 
-    public void getCount(@RequestParam Long id, int count) {
-
-        cartService.setCountItemInCart(id, count);
+    public void getCount(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid, @RequestParam Long id, int count) {
+        uuid = getCartUuid(username, uuid);
+        cartService.setCountItemInCart(uuid, id, count);
     }
 
-    @GetMapping("/clear")
-    public void clearCart() {
-        cartService.clear();
+    @GetMapping("/{uuid}/clear")
+    public void clearCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid) {
+        uuid = getCartUuid(username, uuid);
+        cartService.clear(uuid);
     }
 
 
-    @GetMapping
-    public CartDto getCurrentCart() {
-        return cartConverter.entityToDto(cartService.getCurrentCart());
+    @GetMapping("/{uuid}")
+    public CartDto getCurrentCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid) {
+        uuid = getCartUuid(username, uuid);
+        log.info(uuid);
+        return cartConverter.entityToDto(cartService.getCurrentCart(uuid));
+    }
+
+    private String getCartUuid(String username, String uuid) {
+        if (username != null) {
+            return username;
+        }
+        return uuid;
     }
 }

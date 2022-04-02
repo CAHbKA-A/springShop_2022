@@ -35,30 +35,30 @@ public class OrderService {
     }
 
 
-
-
     @Transactional
     public Order createOrder(String username, OrderData orderData) {
-        CartDto cartDto = cartServiceIntegration.getCurrentCart();
+        CartDto cartDto = cartServiceIntegration.getCurrentCart(username);
+
 
         Order order = new Order();
-        order.setUsername(username);
-        order.setAddress(orderData.getAddress());
-        order.setPhone(orderData.getPhone());
-        order.setTotalPrice(cartDto.getTotalPrice());
+        if (cartDto.getItems().size() != 0) {
+            order.setUsername(username);
+            order.setAddress(orderData.getAddress());
+            order.setPhone(orderData.getPhone());
+            order.setTotalPrice(cartDto.getTotalPrice());
 
-        order.setItems(cartDto.getItems().stream().map(
-                cartItem -> new OrderItem(
-                        productService.findById(cartItem.getProductId()).get(),
-                        order,
-                        cartItem.getQuantity(),
-                        cartItem.getPricePerProduct(),
-                        cartItem.getPrice()
-                )
-        ).collect(Collectors.toList()));
-        orderRepository.save(order);
-        cartServiceIntegration.clear();
-
+            order.setItems(cartDto.getItems().stream().map(
+                    cartItem -> new OrderItem(
+                            productService.findById(cartItem.getProductId()).get(),
+                            order,
+                            cartItem.getQuantity(),
+                            cartItem.getPricePerProduct(),
+                            cartItem.getPrice()
+                    )
+            ).collect(Collectors.toList()));
+            orderRepository.save(order);
+            cartServiceIntegration.clear(username);
+        }
         return order;
     }
 }

@@ -1,5 +1,6 @@
 package ru.gb.springShop.core.test;
 /*тест одного сервиса с заглушками на соседях*/
+
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ public class OrderServiceTest {
         cartDto.setTotalPrice(BigDecimal.valueOf(200));
         log.info("!" + cartDto.getTotalPrice());
         //создаем загрушку для cartServiceIntegration/ подмена возвращаемого значения/ при вызове cartServiceIntegration.getCurrentCart() возвращается cartDto
-        Mockito.doReturn(cartDto).when(cartServiceIntegration).getCurrentCart();
+        Mockito.doReturn(cartDto).when(cartServiceIntegration).getCurrentCart("0");
 
         //заглушка для продуксСервис.с учетом
         Product product = new Product();
