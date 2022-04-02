@@ -42,24 +42,6 @@ public class ProductService {
 
     }
 
-//    //todo ignoreCase
-//    public List<Product> findByFilter(FilterData filterData) {
-//
-//        BigDecimal minPrice = filterData.getMinPrice();
-//        BigDecimal maxPrice = filterData.getMaxPrice();
-//        String textForSearch = filterData.getTextSearch();
-//        if (minPrice == null) minPrice = BigDecimal.ZERO;
-//        if (maxPrice == null ) maxPrice = BigDecimal.ZERO;
-//        if (textForSearch == null) textForSearch = "~*";
-//        if (maxPrice.equals(BigDecimal.ZERO))
-//            return productRepository.findAllByPriceGreaterThanEqualAndTitleContains(minPrice, textForSearch);
-//
-//
-//        return productRepository.findAllByPriceGreaterThanEqualAndPriceLessThanEqualAndTitleContains(minPrice, maxPrice, textForSearch);
-//
-//
-//    }
-
     public Specification<Product> createSpecByFilters(Integer minPrice, Integer maxPrice, String title) {
         Specification<Product> spec = Specification.where(null);
         if (minPrice != null) {

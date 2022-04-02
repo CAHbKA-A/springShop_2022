@@ -48,6 +48,13 @@
 
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.ownUser.token; //если токен актуален, вставляем в хедер
         }
+        //проверяем в локальном хранилище наличие id корзины(дефолтное, не привязанное к юзернейму. если нет, генерим и записываем
+        if (!$localStorage.GBGuestCartId) {
+            $http.get('http://localhost:5555/cart/api/v1/cart/default_uuid')
+                .then(function successCallback(response) {
+                    $localStorage.GBGuestCartId = response.data.value;
+                });
+        }
         console.log('end');
     }
 })();
@@ -80,7 +87,7 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
 
         $scope.clearUser = function () { //вычищаем пользователя из браузера
             delete $localStorage.ownUser; //удаялем локальню переменую  из хронилища браузера
-            $http.defaults.headers.common.Authorization = '';//очищаем заоголовок (удаляем токен)
+            $http.defaults.headers.common.Authorization = '';//очищаем заголовок (удаляем токен)
         };
 
 
@@ -100,4 +107,13 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
                 alert(response.data.value); //высплывающее окно с полученой строкой
             });
         };
+
+
+
+    // $scope.loadCart = function () {
+    //     $http.get(contextPath + 'api/v1/cart').then(function (response) {
+    //         $scope.cart = response.data;
+    //         //  console.log($scope.user)
+    //     });
+    // }
 });

@@ -3,21 +3,22 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     const coreContextPath = 'http://localhost:5555/core/';
 
     $scope.loadCart = function () {
-        $http.get(contextPath + 'api/v1/cart').then(function (response) {
+        $http.get(contextPath + 'api/v1/cart/' + $scope.GBGuestCartId).then(function (response) {
             $scope.cart = response.data;
-            console.log($scope.user)
+            //  console.log($scope.user)
         });
     }
 
+
     $scope.clearCart = function () {
-        $http.get(contextPath + 'api/v1/cart/clear').then(function (response) {
+        $http.get(contextPath + 'api/v1/cart/' + $scope.GBGuestCartId + '/clear').then(function (response) {
             $scope.loadCart();
         });
     }
 
 
     $scope.deleteItemFromCart = function (id) {
-        $http.get(contextPath + 'api/v1/cart/deleteItem/' + id).then(function (response) {
+        $http.get(contextPath + 'api/v1/cart/' + $scope.GBGuestCartId + '/deleteItem/' + id).then(function (response) {
             $scope.loadCart();
         });
     }
@@ -26,10 +27,10 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     //todo сохранение в локальное хранилище браузера телефона и адреса. или подтягивать из бд
     $scope.createOrder = function () {
 
-        $http.post(coreContextPath+'api/v1/orders', $scope.user).then(function successCallback(response) { //HttpStatus.CREATED)
+        $http.post(coreContextPath + 'api/v1/orders', $scope.user).then(function successCallback(response) { //HttpStatus.CREATED)
             //reload или перейти  на страницу заказов
 
-            $scope.loadCart($scope.user);
+            $scope.loadCart();
 
 
         }, function errorCallback(response) {
@@ -39,12 +40,13 @@ angular.module('market').controller('cartController', function ($scope, $http, $
     };
 
     $scope.setCountItem = function (productId, count) {
-        $http.get(contextPath + 'api/v1/cart/SetCountItem?id=' + productId + '&count=' + count).then(function (response) {
+        $http.get(contextPath + 'api/v1/cart/' + $scope.GBGuestCartId + '/SetCountItem?id=' + productId + '&count=' + count).then(function (response) {
             $scope.loadCart($scope.user);
         });
     }
 
 
-
+    // console.log()
     $scope.loadCart($scope.user);
+
 });

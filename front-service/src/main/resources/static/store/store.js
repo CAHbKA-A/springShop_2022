@@ -11,13 +11,14 @@ angular.module('market').controller('storeController', function ($scope, $http, 
 
 
     $scope.addToCart = function (productId) {
-        $http.get(cartContextPath + 'api/v1/cart/add/' + productId).then(function (response) {
-
+        $http.get(cartContextPath + 'api/v1/cart/' + $scope.GBGuestCartId + '/add/' + productId).then(function (response) {
+            console.log($scope.ownUser)
         });
     }
 
 
     $scope.loadProducts = function (minPrice, maxPrice, textSearch) {
+
 
         $http.get(contextPath + 'api/v1/products',
             {
@@ -57,20 +58,14 @@ angular.module('market').controller('storeController', function ($scope, $http, 
         ).then(function (response) {
 
             $scope.productsList = response.data;
-            if($scope.productsList.length ==0){
+            if ($scope.productsList.length == 0) {
                 $scope.changePage(-1)
 
             }
 
         });
     }
-    // $scope.filter = function () {
-    //     console.log("filter");
-    //     $http.post(contextPath + 'api/v1/products/filter', $scope.filterData).then(function (response) {
-    //         $scope.productsList = response.data;
-    //
-    //     });
-    // }
+
 
 
     $scope.loadProducts();
