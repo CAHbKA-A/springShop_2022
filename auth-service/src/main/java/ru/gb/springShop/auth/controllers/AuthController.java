@@ -8,11 +8,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.springShop.api.AppError;
-import ru.gb.springShop.api.JwtRequest;
-import ru.gb.springShop.api.JwtResponse;
-import ru.gb.springShop.api.StringResponse;
+import ru.gb.springShop.api.*;
+import ru.gb.springShop.auth.entities.User;
 import ru.gb.springShop.auth.services.UserService;
 import ru.gb.springShop.auth.utils.JwtTokenUtil;
 
@@ -28,6 +27,7 @@ public class AuthController {
     private final JwtTokenUtil jwtTokenUtil;
     //бин спринга. сверяет токен с юзером(есть/нет вообще )
     private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
     //урл авторизации. через метод пост json c логином и паролем
     @PostMapping("/auth")
@@ -57,5 +57,24 @@ public class AuthController {
     public StringResponse authCheck(Principal principal) {
         log.info("check AuthController");
         return new StringResponse(principal.getName());
+    }
+
+    @PostMapping("/registration")
+    public ResponseEntity<?> createAuthToken(@RequestBody RegistrationUserDto registrationUserDto) {
+        if (!registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пароли не совпадают"), HttpStatus.BAD_REQUEST);
+        }
+        if (userService.findByUsername(registrationUserDto.getUsername()).isPresent()) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пользователь с таким именем уже существует"), HttpStatus.BAD_REQUEST);
+        }
+        User user = new User();
+        user.setEmail(registrationUserDto.getEmail());
+        user.setUsername(registrationUserDto.getUsername());
+        user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
+        userService.createUser(user);
+
+        UserDetails userDetails = userService.loadUserByUsername(registrationUserDto.getUsername());
+        String token = jwtTokenUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new JwtResponse(token));
     }
 }
