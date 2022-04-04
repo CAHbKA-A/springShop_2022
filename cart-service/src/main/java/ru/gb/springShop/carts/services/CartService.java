@@ -23,15 +23,17 @@ public class CartService {
 
     public Cart getCurrentCart(String cartIdByUser) {
         String fullCartId = prefixForCarts + cartIdByUser;
+
         if (!redisTemplate.hasKey(fullCartId)) {
             redisTemplate.opsForValue().set(fullCartId, new Cart());
+
         }
         return (Cart) redisTemplate.opsForValue().get(fullCartId);
     }
 
     public void add(String cartIdByUser, Long productId) {
         ProductDto product = productServiceIntegration.getProductById(productId);
-        System.out.println(product);
+
         //        Cart cart = getCurrentCart(cartIdByUser);
 //        cart.add(product);
         //       redisTemplate.opsForValue().set(prefixForCarts + cartIdByUser, cart);
@@ -66,6 +68,19 @@ public class CartService {
         execute(cartIdByUser, cart -> cart.setCount(id, Math.max(count, 0)));
     }
 
+
+    public void mergeCarts(String cartIdByUser, String userHeader) {
+        Cart cartUser = getCurrentCart(cartIdByUser);//корзина привязанная к залогиненому пользователю
+        Cart cartDefault = getCurrentCart(userHeader); //дефолтная корзина (по сгенерированному юзернейму)
+        // cartDefault.getItems().stream().forEach(cartItem -> cartUser.add(productServiceIntegration.getProductById(cartItem.getProductId())));
+        cartDefault.getItems().stream().forEach(cartItem -> cartUser.addItem(cartItem));
+        cartDefault.clear();//чистим дефолтную
+        redisTemplate.opsForValue().set(prefixForCarts + cartIdByUser, cartUser); //обе сохроняем
+        redisTemplate.opsForValue().set(prefixForCarts + userHeader, cartDefault);
+
+
+    }
+
     //вынесли поторяющиеся методы
     private void execute(String cartIdByUser, Consumer<Cart> operation) {
         Cart cart = getCurrentCart(cartIdByUser);
@@ -73,5 +88,4 @@ public class CartService {
         redisTemplate.opsForValue().set(prefixForCarts + cartIdByUser, cart);
 
     }
-
 }

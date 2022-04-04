@@ -23,7 +23,7 @@ public class CartController {
 
     //корзина для неавторизованных
     @GetMapping("/default_uuid")
-    public StringResponse getrateUuid() {
+    public StringResponse generateUuid() {
         return new StringResponse(UUID.randomUUID().toString());
     }
 
@@ -31,6 +31,7 @@ public class CartController {
     public void addToCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid, @PathVariable Long id) {
         uuid = getCartUuid(username, uuid);
         cartService.add(uuid, id);
+
     }
 
 
@@ -55,11 +56,18 @@ public class CartController {
         cartService.clear(uuid);
     }
 
+    @GetMapping("/mergeCart/{uuid}")
+    public void merge(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid) {
+
+        cartService.mergeCarts(username, uuid);
+
+
+    }
 
     @GetMapping("/{uuid}")
     public CartDto getCurrentCart(@RequestHeader(name = "username", required = false) String username, @PathVariable String uuid) {
+        //  cartService.mergeCarts(username,uuid);
         uuid = getCartUuid(username, uuid);
-        log.info(uuid);
         return cartConverter.entityToDto(cartService.getCurrentCart(uuid));
     }
 

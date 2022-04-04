@@ -4,8 +4,9 @@ angular.module('market').controller('cartController', function ($scope, $http, $
 
     $scope.loadCart = function () {
         $http.get(contextPath + 'api/v1/cart/' + $scope.GBGuestCartId).then(function (response) {
+
             $scope.cart = response.data;
-            //  console.log($scope.user)
+
         });
     }
 

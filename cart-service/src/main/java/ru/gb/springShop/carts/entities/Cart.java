@@ -39,6 +39,21 @@ public class Cart {
     }
 
 
+
+
+    public void addItem(CartItem cartItem) {
+//        for (CartItem item : items) {
+//            if (item.equals(item.getProductId())) {
+//                item.changeQuantity(item.getQuantity() + 1);
+//                recalculate();
+//                return;
+//            }
+//        }
+        items.add(cartItem);
+        recalculate();
+    }
+
+
     public void remove(Long productId) {
         if (items.removeIf(item -> item.getProductId().equals(productId))) {
             recalculate();
