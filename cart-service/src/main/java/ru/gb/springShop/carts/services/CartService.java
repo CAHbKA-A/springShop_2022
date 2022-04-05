@@ -73,6 +73,7 @@ public class CartService {
         Cart cartUser = getCurrentCart(cartIdByUser);//корзина привязанная к залогиненому пользователю
         Cart cartDefault = getCurrentCart(userHeader); //дефолтная корзина (по сгенерированному юзернейму)
         // cartDefault.getItems().stream().forEach(cartItem -> cartUser.add(productServiceIntegration.getProductById(cartItem.getProductId())));
+       //переваливаем в корзину юзера
         cartDefault.getItems().stream().forEach(cartItem -> cartUser.addItem(cartItem));
         cartDefault.clear();//чистим дефолтную
         redisTemplate.opsForValue().set(prefixForCarts + cartIdByUser, cartUser); //обе сохроняем

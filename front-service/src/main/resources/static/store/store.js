@@ -12,7 +12,7 @@ angular.module('market').controller('storeController', function ($scope, $http, 
 
     $scope.addToCart = function (productId) {
         $http.get(cartContextPath + 'api/v1/cart/' + $scope.GBGuestCartId + '/add/' + productId).then(function (response) {
-            console.log($scope.ownUser)
+
         });
     }
 
