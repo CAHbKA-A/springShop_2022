@@ -5,11 +5,19 @@ package ru.gb.springShop.api;
 // data transfer object (структура для передачи)
 //на фронт всегда отдаем ДТО. Ломая в ДБ необязательные поля, на стороне фронта изминений не будет.
 
-import java.math.BigDecimal;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.math.BigDecimal;
+@Schema(description = "Модель продукта") //аннтоации для swagger
 public class ProductDto {
+    @Schema(description = "ID продукта", required = true, example = "2")
     private Long id;
+
+    @Schema(description = "Название продукта", required = true, maxLength = 255, minLength = 2, example = "Хламида}")
     private String title;
+
+    @Schema(description = "Цена продукта", required = true, example = "55.00")
     private BigDecimal price;
 
     public Long getId() {

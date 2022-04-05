@@ -1,13 +1,19 @@
 package ru.gb.springShop.core.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.api.ProductDto;
 import ru.gb.springShop.api.ResourceNotFoundException;
 import ru.gb.springShop.core.convertors.ProductConverter;
-import ru.gb.springShop.core.entities.FilterData;
 import ru.gb.springShop.core.entities.Product;
 import ru.gb.springShop.core.services.ProductService;
 
@@ -17,12 +23,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
-
+@Tag(name = "Продукты", description = "Методы работы с продуктами") //для swagger
 public class ProductController {
     //Подключаем сервисы (финал -в обяз)
     private final ProductService productService;
     private final ProductConverter productConverter;
-    //private int currentPage;
+
+
+    @Operation(
+            summary = "Запрос на получение отфильтрованного списка продуктов",
+            responses = {
+                    @ApiResponse(
+                            description = "Успешный ответ", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    )
+            }
+    )
 
     //вытягивание всего списка
     @GetMapping
@@ -43,10 +59,22 @@ public class ProductController {
         return productService.findAll(spec, page - 1).map(productConverter::entityToDto).getContent();
     }
 
-
+    @Operation(
+            summary = "Запрос на получение продукта по id",
+            responses = {
+                    @ApiResponse(
+                            description = "Успешный ответ", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    )
+//                    ,
+//                    @ApiResponse(
+//                            description = "Продукт не найден", responseCode = "404",
+//                            content = @Content(schema = @Schema(implementation = AppError.class))
+//                    )
+            }
+    )
     @GetMapping("/{id}")
-
-    public ProductDto findProductById(@PathVariable Long id) {
+    public ProductDto findProductById(@PathVariable @Parameter(description = "Идентификатор продукта", required = true)  Long id) {
         Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден, id: " + id));
         return new ProductDto(p.getId(), p.getTitle(), p.getPrice());
     }
@@ -68,5 +96,20 @@ public class ProductController {
 //
 //    }
 
+    @Operation(
+            summary = "Запрос на создание нового продукта",
+            responses = {
+                    @ApiResponse(
+                            description = "Продукт успешно создан", responseCode = "201",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    )
+            }
+    )
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductDto createNewProduct(@RequestBody ProductDto productDto) {
+        Product p = productService.createNewProduct(productDto);
+        return productConverter.entityToDto(p);
+    }
 
 }
