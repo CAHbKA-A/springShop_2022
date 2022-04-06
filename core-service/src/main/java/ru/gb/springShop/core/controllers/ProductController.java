@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.springShop.api.AppError;
 import ru.gb.springShop.api.ProductDto;
 import ru.gb.springShop.api.ResourceNotFoundException;
 import ru.gb.springShop.core.convertors.ProductConverter;
@@ -66,11 +67,11 @@ public class ProductController {
                             description = "Успешный ответ", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
                     )
-//                    ,
-//                    @ApiResponse(
-//                            description = "Продукт не найден", responseCode = "404",
-//                            content = @Content(schema = @Schema(implementation = AppError.class))
-//                    )
+                    ,
+                    @ApiResponse(
+                            description = "Продукт не найден", responseCode = "404",
+                            content = @Content(schema = @Schema(implementation = AppError.class))
+                    )
             }
     )
     @GetMapping("/{id}")
