@@ -1,10 +1,15 @@
 package ru.gb.springShop.api;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /*Иноформация о кртивых запросах */
 public class AppError {
     //короткий код
+    @Schema(description = "Код ошибки", required = true, example = "201")
     private int statusCode;
+
     //сообщение в чем именно проблема
+    @Schema(description = "Описание ошибки", required = true, example = "продукт не найден")
     private String message;
 
 

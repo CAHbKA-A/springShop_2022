@@ -2,16 +2,25 @@ package ru.gb.springShop.api;
 
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
 public class OrderDto {
+    @Schema(description = "Идентификатор заказа", required = true, example = "1")
     private Long id;
+
+    @Schema(description = "Логин владелельца заказа", required = true, example = "Bob")
     private String username;
+
+    @Schema(description = "Итоговая стоимость заказа", required = false, example = "25.00")
     private BigDecimal totalPrice;
+
+    @Schema(description = "Время сздания заказа", required = false, example = "2022-04-07T21:39:58.693687")
     private LocalDateTime createdAt;
- //   private List<OrderItemDto> orderItems;
+
 
     public Long getId() {
         return id;

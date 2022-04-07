@@ -25,6 +25,7 @@ spring:
         web-allow-others: false
 
 
+
 integrations:
   cart-service:
     url: http://localhost:8181/shop-carts/

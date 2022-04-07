@@ -18,19 +18,8 @@ integrations:
 cart-service:
   cart-prefix: gb_shop_cart_
 
+
 #spring:
 #  redis:
-#    host: localhost
-#
 #    port: 6379
-#
-#      pool:
-#        min-idle: 5
-#        max-active: 10
-#        max-idle: 10
-#        max-wait: 2000
-#
-#    timeout: 1000
-spring:
-  redis:
-    port: 6379
+#    host: localhost

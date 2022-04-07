@@ -65,7 +65,7 @@ public class ProductController {
             responses = {
                     @ApiResponse(
                             description = "Успешный ответ", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                            content = @Content(schema = @Schema(implementation = List.class))
                     )
                     ,
                     @ApiResponse(
@@ -80,22 +80,31 @@ public class ProductController {
         return new ProductDto(p.getId(), p.getTitle(), p.getPrice());
     }
 
-
+    @Operation(
+            summary = "Запрос на удаленние продукта по id",
+            responses = {
+                    @ApiResponse(
+                            description = "Продукт Удален", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = void.class))
+                    )
+                    ,
+                    @ApiResponse(
+                            description = "Продукт не найден", responseCode = "404",
+                            content = @Content(schema = @Schema(implementation = AppError.class))
+                    ) ,
+                    @ApiResponse(
+                            description = "ошибка сервера", responseCode = "500",
+                            content = @Content(schema = @Schema(implementation = AppError.class))
+                    )
+            }
+    )
     //удаляем объект по id
     @DeleteMapping("/{id}")
-    void deleteProductById(@PathVariable Long id) {
+
+    void deleteProductById(@PathVariable  @Parameter(description = "Идентификатор продукта", required = true) Long id) {
         productService.deleteById(id);
     }
 
-//
-//    @PostMapping("/filter")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public  List<ProductDto>  filter(@RequestBody FilterData filterData) {
-//
-//        //log.info(" "+filterData.getMinPrice()+filterData.getMaxPrice()+filterData.getTextSearch());
-//        return productService.findByFilter(filterData).stream().map(p -> new ProductDto(p.getId(), p.getTitle(), p.getPrice())).collect(Collectors.toList());
-//
-//    }
 
     @Operation(
             summary = "Запрос на создание нового продукта",
