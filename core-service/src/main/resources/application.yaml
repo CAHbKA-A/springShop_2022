@@ -3,29 +3,51 @@ server:
   servlet:
     context-path: /shop-core
 
+#spring:
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#
+#    url: jdbc:h2:mem:mydatabase;MODE=PostgreSQL
+##    url: jdbc:h2:file:./:mydatabase;MODE=PostgreSQL
+#    username: sa
+#    password:
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+##for correct create queries by our action
+#        dialect: org.hibernate.dialect.H2Dialect
+##web console fo h2 DB
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: false
+
+#spring:
+#  datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3307/store
+#    username: root
+#    password: root
+#  jpa:
+#    hibernate.ddl-auto: update
+#    generate-ddl: true
+#    show-sql: true
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
+    url: jdbc:postgresql://localhost:5435/store
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
 
-    url: jdbc:h2:mem:mydatabase;MODE=PostgreSQL
-#    url: jdbc:h2:file:./:mydatabase;MODE=PostgreSQL
-    username: sa
-    password:
   jpa:
+
     show-sql: true
     properties:
       hibernate:
-#for correct create queries by our action
-        dialect: org.hibernate.dialect.H2Dialect
-#web console fo h2 DB
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: false
 
-
-
+      format_sql: true
 integrations:
   cart-service:
     url: http://localhost:8181/shop-carts/
