@@ -17,3 +17,9 @@ integrations:
 
 cart-service:
   cart-prefix: gb_shop_cart_
+
+
+#spring:
+#  redis:
+#    port: 6379
+#    host: localhost

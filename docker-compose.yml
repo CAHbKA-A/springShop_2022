@@ -1,0 +1,52 @@
+version: '3'
+#список сервисов, которые надо разврнуть в докере. в одном контейнере
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: GB_spring_core
+    environment:
+      POSTGRES_DB: store
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+
+    ports:
+      - "5435:5432"
+
+#
+#  db:
+#    image: mysql:latest
+#
+#    restart: always
+#    environment:
+#      - MYSQL_DATABASE=store
+#      - MYSQL_ROOT_PASSWORD=root
+#    ports:
+#      - '3307:3306'
+##
+
+
+
+##проверка после запуска
+#    healthcheck:
+#      test: ["CMD", "pg_isready", "-q", "-U", "postgres"]
+#      interval: 5s
+#      timeout: 1s
+#      retries: 2
+
+#  flyway:
+#    image: boxfuse/flyway
+#    command: -url=jdbc:postgresql://postgres:5432/postgres -schemas=public -user=postgres -password=root -connectRetries=30 migrate
+##монтируем папку проетка в папку сонтейнера
+#    volumes:
+#      - ./flyway:/flyway/sql
+##зависимость. ждет пока посгресс не запустится
+#    depends_on:
+#      - postgres
+
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6388:6379"
