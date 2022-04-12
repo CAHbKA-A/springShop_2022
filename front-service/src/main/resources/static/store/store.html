@@ -9,13 +9,13 @@
         <form class="align-middle" ng-submit="loadProducts()">
             <td>
                 <div class="input-group input-group-sm" style="padding: 4px;">
-                    <input id="filterMinPrice" class="form-control" ng-model="minPrice" type="text"
+                    <input id="filterMinPrice" class="form-control" ng-model="filter.minPrice" type="text"
                            style="margin-right: 10px;" placeholder="minprice">
-                    <input id="filterMaxPrice" class="form-control" ng-model="maxPrice" type="text"
+                    <input id="filterMaxPrice" class="form-control" ng-model="filter.maxPrice" type="text"
                            style="margin-right: 10px;" placeholder="maxPrice">
-                    <input id="filterTextSearch" class="form-control" ng-model="textSearch" type="text"
+                    <input id="filterTextSearch" class="form-control" ng-model="filter.textSearch" type="text"
                            style="margin-right: 10px;" placeholder="textSearch">
-                    <button type="button" class="btn btn-success" ng-click="loadProducts(minPrice,maxPrice,textSearch)" type="submit">Фильтр </button>
+                    <button type="button" class="btn btn-success" ng-click="loadProducts(1)" type="submit">Фильтр </button>
                 </div>
             </td>
         </form>
@@ -30,8 +30,8 @@
         </tr>
         <tbody>
 
+        <tr ng-repeat="p in productsPage.items">
 
-        <tr ng-repeat="p in productsList">
             <td>{{p.id}}</td>
             <td>{{p.title}}</td>
             <td>{{p.price}} $</td>
@@ -45,11 +45,18 @@
 
         </tbody>
     </table>
-    <button type="button" class="btn btn-secondary" ng-click="changePage(-1)">
-        Пред
-    </button>
-    {{currentPage}} стр
-    <button type="button" class="btn btn-secondary" ng-click="changePage(+1)">
-        След
-    </button>
+<!--    <button type="button" class="btn btn-secondary" ng-click="changePage(-1)">-->
+<!--        Пред-->
+<!--    </button>-->
+<!--    {{currentPage}} стр-->
+<!--    <button type="button" class="btn btn-secondary" ng-click="changePage(+1)">-->
+<!--        След-->
+<!--    </button>-->
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" ng-repeat="pageIndex in pagesList">
+                <button class="page-link" ng-click="loadProducts(pageIndex)">{{pageIndex}}</button>
+            </li>
+        </ul>
+    </nav>
 </div>

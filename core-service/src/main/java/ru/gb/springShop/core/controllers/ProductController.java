@@ -8,10 +8,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.gb.springShop.api.AppError;
+import ru.gb.springShop.api.PageDto;
 import ru.gb.springShop.api.ProductDto;
 import ru.gb.springShop.api.ResourceNotFoundException;
 import ru.gb.springShop.core.convertors.ProductConverter;
@@ -41,25 +43,29 @@ public class ProductController {
             }
     )
 
-    //вытягивание всего списка
+
     @GetMapping
-    public List<ProductDto> findProducts(
+    public PageDto<ProductDto> findProducts(
             @RequestParam(required = false, name = "min_price") Integer minPrice,
             @RequestParam(required = false, name = "max_price") Integer maxPrice,
             @RequestParam(required = false, name = "title") String title,
             @RequestParam(defaultValue = "1", name = "p") Integer page
-    )
-
-    {// currentPage=currentPage+page;
-//        if (page < 1) {
-//            page = 1;
-//        }
-
+    ) {
+        if (page < 1) {
+            page = 1;
+        }
+       System.out.println(minPrice);
+       System.out.println(maxPrice);
+       System.out.println(title);
         Specification<Product> spec = productService.createSpecByFilters(minPrice, maxPrice, title);
-        //получаем с  страницы н-1( с нуля), и мапим из пейджа в дто и преобразуем в лист
-        return productService.findAll(spec, page - 1).map(productConverter::entityToDto).getContent();
-    }
+        Page<ProductDto> jpaPage = productService.findAll(spec, page - 1).map(productConverter::entityToDto);
 
+        PageDto<ProductDto> out = new PageDto<>();
+        out.setPage(jpaPage.getNumber());
+        out.setItems(jpaPage.getContent());
+        out.setTotalPages(jpaPage.getTotalPages());
+        return out;
+    }
     @Operation(
             summary = "Запрос на получение продукта по id",
             responses = {
