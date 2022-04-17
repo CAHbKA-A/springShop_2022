@@ -3,6 +3,7 @@ package ru.gb.springShop.auth.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 //обработка json токенов. генерация и парсинг
 @Component
 public class JwtTokenUtil {
@@ -35,7 +36,7 @@ public class JwtTokenUtil {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         //укаладываем это в клеймсы. с ключем "roles" будт лежать роли пользователя
-        claims.put("roles", rolesList);
+        claims.put("role", rolesList);
         //дата создания
         Date issuedDate = new Date();
         //время истечения токена

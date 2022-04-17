@@ -79,7 +79,8 @@ public class OrderController {
             }
     )
     @GetMapping
-    public List<OrderDto> findAllProducts() {
+    public List<OrderDto> findAllOrders() {
+
         return orderConvertor.listToDto(orderService.findAllOrders());
 
     }

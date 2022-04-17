@@ -1,5 +1,6 @@
 package ru.gb.springShop.core.controllers;
 
+import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,10 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.springShop.api.AppError;
-import ru.gb.springShop.api.PageDto;
-import ru.gb.springShop.api.ProductDto;
-import ru.gb.springShop.api.ResourceNotFoundException;
+import ru.gb.springShop.api.*;
 import ru.gb.springShop.core.convertors.ProductConverter;
 import ru.gb.springShop.core.entities.Product;
 import ru.gb.springShop.core.services.ProductService;
@@ -54,9 +52,7 @@ public class ProductController {
         if (page < 1) {
             page = 1;
         }
-       System.out.println(minPrice);
-       System.out.println(maxPrice);
-       System.out.println(title);
+
         Specification<Product> spec = productService.createSpecByFilters(minPrice, maxPrice, title);
         Page<ProductDto> jpaPage = productService.findAll(spec, page - 1).map(productConverter::entityToDto);
 
@@ -71,7 +67,7 @@ public class ProductController {
             responses = {
                     @ApiResponse(
                             description = "Успешный ответ", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = List.class))
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
                     )
                     ,
                     @ApiResponse(
@@ -127,5 +123,24 @@ public class ProductController {
         Product p = productService.createNewProduct(productDto);
         return productConverter.entityToDto(p);
     }
+    @Operation(
+            summary = "Проверка роли",
+            responses = {
+                    @ApiResponse(
+                            description = "Успешный ответ", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = RoleDto.class))
+                    )
+                    ,
+                    @ApiResponse(
+                            description = "роль не присвоена", responseCode = "404",
+                            content = @Content(schema = @Schema(implementation = AppError.class))
+                    )
+            }
+    )
+    @GetMapping("/admin")
+    public RoleDto findRole(@RequestHeader String role                              ) {
 
+
+        return new RoleDto(role);
+    }
 }

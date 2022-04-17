@@ -14,7 +14,7 @@ public class JwtResponse {
         this.token = token;
     }
 
-    public JwtResponse(String token) {
+  public JwtResponse(String token) {
         this.token = token;
     }
 
