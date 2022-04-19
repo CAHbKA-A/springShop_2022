@@ -10,6 +10,7 @@ import ru.gb.springShop.api.ProductDto;
 import ru.gb.springShop.core.entities.Product;
 import ru.gb.springShop.core.repositories.ProductRepository;
 import ru.gb.springShop.core.repositories.specifications.ProductsSpecifications;
+import ru.gb.springShop.core.validators.ProductValidator;
 
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ProductValidator productValidator;
 
     public Page<Product> findAll(Specification<Product> spec, int page) {
         return productRepository.findAll(spec, PageRequest.of(page, 5));
@@ -32,6 +34,7 @@ public class ProductService {
     }
 
     public Product createNewProduct(ProductDto productDto) {
+        productValidator.validate(productDto);
         Product product = new Product();
         product.setPrice(productDto.getPrice());
         product.setTitle(productDto.getTitle());

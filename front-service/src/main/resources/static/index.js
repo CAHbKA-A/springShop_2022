@@ -29,6 +29,8 @@
                 templateUrl: 'registration/registration.html',
                 controller: 'registrationController'
             })
+
+
             .otherwise({
                 redirectTo: '/'
             });
@@ -75,9 +77,11 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;//добавляем в дефолтный херед. чтобы браузер всегда отправлял токен
                     //кладем в локальное хранилище браузера, чтобы не терять при передапуске браузера или обновлении страницы.
                     //храниться в виде мапы ownUser .токен храниться с ключом username. !!в браузере надо влкючить хранилище (в index.html библиотеку ngStorage.min.js
-                    $localStorage.ownUser = {username: $scope.user.username, token: response.data.token};
+                    $localStorage.ownUser = {username: $scope.user.username, token: response.data.token, role: response.data.role};
+                    console.log($localStorage.ownUser);
                     $scope.user.username = null;  //убираем за собой
                     $scope.user.password = null;
+
 
                     //сращиваем корзины
                     $http.get('http://localhost:5555/cart/api/v1/cart/mergeCart/' + $scope.GBGuestCartId);
@@ -109,12 +113,19 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
         }
     };
 
-    //функционал запроса своего логина (проверка авторизации)
-    $scope.authCheck = function () {
-        $http.get('http://localhost:5555/core/auth_check').then(function (response) {
-            alert(response.data.value); //высплывающее окно с полученой строкой
-        });
-    };
+    // //функционал запроса своего логина (проверка авторизации)
+    // $scope.authCheck = function () {
+    //     $http.get('http://localhost:5555/core/auth_check').then(function (response) {
+    //         alert(response.data.value); //высплывающее окно с полученой строкой
+    //     });
+    // };
 
+
+    $scope.showRoleInfo = function () {
+        $http.get( 'http://localhost:5555/core/api/v1/products/admin' ).then(function (response) {
+           console.log(response.data)
+            alert(response.data.value);
+        });
+    }
 
 });

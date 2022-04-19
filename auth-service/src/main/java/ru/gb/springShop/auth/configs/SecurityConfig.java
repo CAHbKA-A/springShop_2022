@@ -29,9 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //даем доступ ко всем точкам
                 .authorizeRequests()
                 //доступ к эндпоинту только для авторизованных
-          //      .antMatchers("/auth_check").authenticated()  //доступ к эндпоинту проверки авторизации только для авторизованных
-           //     .antMatchers("/api/v1/orders").authenticated()  //доступ к эндпоинту проверки авторизации только для авторизованных
-                 .anyRequest().permitAll()
+                .anyRequest().permitAll()
                 .and()
                 //не используем сессию дла rest
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -43,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //если ломится неавторизованный - то ошибка 401
                 .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
 
- }
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

@@ -1,0 +1,6 @@
+integrations:
+  cart-service:
+    url: http://localhost:8811/core/
+    connect-timeout: 5000
+    read-timeout: 10000
+    write-timeout: 5000
