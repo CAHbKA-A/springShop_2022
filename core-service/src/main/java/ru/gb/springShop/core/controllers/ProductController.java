@@ -1,6 +1,5 @@
 package ru.gb.springShop.core.controllers;
 
-import io.swagger.v3.core.util.Json;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,8 +16,6 @@ import ru.gb.springShop.api.*;
 import ru.gb.springShop.core.convertors.ProductConverter;
 import ru.gb.springShop.core.entities.Product;
 import ru.gb.springShop.core.services.ProductService;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -62,6 +59,7 @@ public class ProductController {
         out.setTotalPages(jpaPage.getTotalPages());
         return out;
     }
+
     @Operation(
             summary = "Запрос на получение продукта по id",
             responses = {
@@ -77,7 +75,7 @@ public class ProductController {
             }
     )
     @GetMapping("/{id}")
-    public ProductDto findProductById(@PathVariable @Parameter(description = "Идентификатор продукта", required = true)  Long id) {
+    public ProductDto findProductById(@PathVariable @Parameter(description = "Идентификатор продукта", required = true) Long id) {
         Product p = productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден, id: " + id));
         return new ProductDto(p.getId(), p.getTitle(), p.getPrice());
     }
@@ -93,7 +91,7 @@ public class ProductController {
                     @ApiResponse(
                             description = "Продукт не найден", responseCode = "404",
                             content = @Content(schema = @Schema(implementation = AppError.class))
-                    ) ,
+                    ),
                     @ApiResponse(
                             description = "ошибка сервера", responseCode = "500",
                             content = @Content(schema = @Schema(implementation = AppError.class))
@@ -102,8 +100,7 @@ public class ProductController {
     )
     //удаляем объект по id
     @DeleteMapping("/{id}")
-
-    void deleteProductById(@PathVariable  @Parameter(description = "Идентификатор продукта", required = true) Long id) {
+    void deleteProductById(@PathVariable @Parameter(description = "Идентификатор продукта", required = true) Long id) {
         productService.deleteById(id);
     }
 
@@ -123,6 +120,7 @@ public class ProductController {
         Product p = productService.createNewProduct(productDto);
         return productConverter.entityToDto(p);
     }
+
     @Operation(
             summary = "Проверка роли",
             responses = {
@@ -138,9 +136,11 @@ public class ProductController {
             }
     )
     @GetMapping("/admin")
-    public RoleDto findRole(@RequestHeader String role                              ) {
+    public StringResponse findRole(@RequestHeader String role) {
+        if (!role.equalsIgnoreCase("[role_admin]")) {
+           // return new StringResponse(404);
+        }
 
-
-        return new RoleDto(role);
+        return new StringResponse(role);
     }
 }

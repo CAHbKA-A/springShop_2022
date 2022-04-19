@@ -113,12 +113,19 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
         }
     };
 
-    //функционал запроса своего логина (проверка авторизации)
-    $scope.authCheck = function () {
-        $http.get('http://localhost:5555/core/auth_check').then(function (response) {
-            alert(response.data.value); //высплывающее окно с полученой строкой
-        });
-    };
+    // //функционал запроса своего логина (проверка авторизации)
+    // $scope.authCheck = function () {
+    //     $http.get('http://localhost:5555/core/auth_check').then(function (response) {
+    //         alert(response.data.value); //высплывающее окно с полученой строкой
+    //     });
+    // };
 
+
+    $scope.showRoleInfo = function () {
+        $http.get( 'http://localhost:5555/core/api/v1/products/admin' ).then(function (response) {
+           console.log(response.data)
+            alert(response.data.value);
+        });
+    }
 
 });
