@@ -25,13 +25,18 @@ server:
 #        web-allow-others: false
 
 
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5436/auth
+#    username: postgres
+#    password: root
+#    driver-class-name: org.postgresql.Driver
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5436/auth
+    url: jdbc:postgresql://localhost:5435/store
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
-
   jpa:
 
     show-sql: true

@@ -1,0 +1,53 @@
+<div>
+    <p></p>
+    <h3>Оформление заказа</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Название</td>
+            <td>Количество</td>
+            <td>Цена</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="i in cart.items">
+            <td>{{i.productTitle}}</td>
+            <td>
+                {{i.quantity}}
+            </td>
+            <td>{{i.pricePerProduct + ' x ' + i.quantity + ' = ' + i.price}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>{{'Итого: ' + cart.totalPrice}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p></p>
+    <h3>Детали заказа</h3>
+<!--    <form novalidate ng-submit="createOrder()">-->
+<!--        <input class="form-control" type="text" placeholder="Номер телефона" ng-model="orderDetails.phone">-->
+<!--        <p></p>-->
+<!--        <input class="form-control" type="text" placeholder="Адрес доставки" ng-model="orderDetails.address">-->
+<!--        <p></p>-->
+<!--        <button type="submit" class="btn btn-primary">Оформить заказ</button>-->
+<!--    </form>-->
+    <form class="align-middle" ng-submit="createOrder()">
+        <td>
+            <div class="input-group input-group-sm" style="padding: 4px;">
+                                        <input id="userAddres" class="form-control" ng-model="user.address" type="text"
+                                               style="margin-right: 10px;" placeholder="664035 NY City/ Обязательно!!">
+                                        <input id="userPhone" class="form-control" ng-model="user.phone" type="text"
+                                               style="margin-right: 10px;" placeholder="+7914918111/ Обязательно!!">
+
+
+                                        <button type="button" class="btn btn-success" ng-click="createOrder()" type="submit">Оформить_заказ
+                                        </button>
+
+
+            </div>
+        </td>
+    </form>
+</div>

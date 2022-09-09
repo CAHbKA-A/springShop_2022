@@ -10,6 +10,8 @@
             <td>Дата</td>
             <td>Сумма</td>
             <td>Статус</td>
+            <td>*</td>
+
 
         </tr>
         <tbody>
@@ -18,8 +20,11 @@
             <td>{{o.id}}</td>
             <td>{{o.createdAt}}</td>
             <td>{{o.totalPrice}} $</td>
-            <td>---</td>
-
+            <td>{{o.state}}</td>
+<!--            <td><button type="button" class="btn btn-success" ng-click="orderPay(o.id)">Оплатить</button></td>-->
+<!--            <td>   <button class="btn btn-primary" ng-click="checkOut(o.id)" >Оплатить</button>-->
+            <button class="btn btn-secondary" ng-click="disabledCheckOut()" >Оплатить</button>
+            </td>
         </tr>
         </tbody>
     </table>

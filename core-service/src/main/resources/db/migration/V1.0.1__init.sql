@@ -37,7 +37,8 @@ create table orders
     address     varchar(255),
     phone       varchar(255),
     created_at  timestamp default current_timestamp,
-    updated_at  timestamp default current_timestamp
+    updated_at  timestamp default current_timestamp,
+    state varchar(255)
 );
 
 create table order_items

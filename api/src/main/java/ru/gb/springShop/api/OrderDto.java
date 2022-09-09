@@ -21,6 +21,8 @@ public class OrderDto {
     @Schema(description = "Время сздания заказа", required = false, example = "2022-04-07T21:39:58.693687")
     private LocalDateTime createdAt;
 
+    @Schema(description = "статус заказа", required = false, example = "оплачен")
+    private String state;
 
     public Long getId() {
         return id;
@@ -53,4 +55,13 @@ public class OrderDto {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
 }

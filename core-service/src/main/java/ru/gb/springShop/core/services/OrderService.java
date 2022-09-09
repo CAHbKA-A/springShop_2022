@@ -46,6 +46,7 @@ public class OrderService {
             order.setAddress(orderData.getAddress());
             order.setPhone(orderData.getPhone());
             order.setTotalPrice(cartDto.getTotalPrice());
+            order.setState("Создан");
 
             order.setItems(cartDto.getItems().stream().map(
                     cartItem -> new OrderItem(
